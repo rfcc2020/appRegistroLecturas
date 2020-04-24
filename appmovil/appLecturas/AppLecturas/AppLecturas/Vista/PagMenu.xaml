@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="AppLecturas.Vista.PagMenu">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Label Text="JUNTA ADMINISTRADORA DE AGUA POTABLE ZUMBAHUAYCO" HorizontalTextAlignment="Center" TextColor="BlueViolet" FontSize="Caption"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Usuario: " HorizontalTextAlignment="Center" FontSize="Micro"/>
+                <Label x:Name="TxtUsuario" TextColor="BlueViolet" FontSize="Micro"/>
+                <Label Text="Perfil: " HorizontalTextAlignment="Center" FontSize="Micro"/>
+                <Label x:Name="TxtPerfil" TextColor="BlueViolet" FontSize="Micro"/>
+                <Label Text="Sector: " HorizontalTextAlignment="Center" FontSize="Micro"/>
+                <Label x:Name="TxtSector" TextColor="BlueViolet" FontSize="Micro"/>
+            </StackLayout>
+            <Button Text="Consultar Medidores" x:Name="ButConsultaMedidores" Clicked="ButConsultaMedidores_ClickedAsync" FontSize="Micro"/>
+            <ListView x:Name="listView" ItemSelected="listView_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="#eee"
+                        Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding Imagen}" HeightRequest="50" WidthRequest="50" HorizontalOptions="End" />
+                                    <Label Text="{Binding Codigo}"
+                                TextColor="#f35e20" />
+                                    <Label Text="{Binding Numero}"
+                                TextColor="#503026" />
+                                    <Label Text="{Binding Marca}"
+                                TextColor="#503026" />
+                                    <Label Text="{Binding Modelo}"
+                                TextColor="#503026" />
+                                    <Label Text="{Binding Sector}"
+                                TextColor="#503026" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Consultar Lecturas" x:Name="ButConsultarLectura" Clicked="ButConsultarLectura_Clicked" FontSize="Micro"/>           
+            <Button Text="Cerrar Sesión" x:Name="ButCerrarSesion" Clicked="ButCerrarSesion_Clicked" FontSize="Micro"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

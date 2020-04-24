@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="AppLecturas.Vista.PagIngresoLectura"
+             xmlns:local="clr-namespace:AppLecturas.Behaviours">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="*"/>
+                    <ColumnDefinition  Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Datos del Consumidor" Grid.Row="0" Grid.Column="0" FontSize="Micro"/>
+                <Label x:Name="txtCedula" Grid.Row="1" Grid.Column="0" FontSize="Micro"></Label>
+                <Label x:Name="LblNombres" Grid.Row="1" Grid.Column="1" FontSize="Micro"></Label>
+                <Label Text="Datos del medidor:" Grid.Row="2" Grid.Column="0" FontSize="Micro"/>
+                <Label x:Name="lblNumero" Grid.Row="3" Grid.Column="0" FontSize="Micro"></Label>
+                <Label x:Name="lblCodigo" Grid.Row="3" Grid.Column="1" FontSize="Micro"></Label>
+                <Label Text="Fecha" Grid.Row="4" Grid.Column="0" FontSize="Micro"/>
+                <DatePicker Date="{Binding Fecha}" Grid.Row="4" Grid.Column="1" FontSize="Micro"></DatePicker>
+                <Label Text="Lectura Anterior: " Grid.Row="5" Grid.Column="0" FontSize="Micro"/>
+                <Label x:Name="TxtAnterior" Text="{Binding Anterior}" Grid.Row="5" Grid.Column="1" FontSize="Micro"></Label>
+                <Label Text="Lectura Actual: " Grid.Row="6" Grid.Column="0" FontSize="Micro"/>
+                <Entry x:Name="txtLecturaActual" Text="{Binding Actual}" Placeholder="Lectura Actual" Grid.Row="6" Grid.Column="1" FontSize="Micro" TextChanged="txtLecturaActual_TextChanged">
+                    <Entry.Behaviors>
+                        <local:NumeroValidatorBehavior/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Consumo: " Grid.Row="7" Grid.Column="0" FontSize="Micro"/>
+                <Label x:Name="txtConsumo" Text="{Binding Consumo}" Grid.Row="7" Grid.Column="1" FontSize="Micro">
+                </Label>
+                <Button x:Name="BtnTomarFoto" Clicked="TomarFotoAsync"  Text="Tomar Foto" Grid.Row="8" Grid.Column="0"></Button>
+                <Button x:Name="BtnSeleccionarFoto" Clicked="SeleccionarFotoAsync" Text="Seleccionar Foto" Grid.Row="8" Grid.Column="1"></Button>
+                <Image x:Name="Imagen" Grid.Row="9" Grid.Column="0"></Image>
+                <Label Text="Observaciones" Grid.Row="10" Grid.Column="0"></Label>
+                <Entry Text="{Binding Observacion}" x:Name="TxtObservacion" Grid.Row="10" Grid.Column="1"></Entry>
+                <Button x:Name="ButGuardar" Text="Guardar" Clicked="ButGuardar_Clicked" Grid.Row="11" Grid.Column="0" FontSize="Micro"></Button>
+                <Button x:Name="ButEliminar" Text="Eliminar" Clicked="ButEliminar_ClickedAsync" Grid.Row="11" Grid.Column="1" FontSize="Micro"></Button>
+            </Grid>            
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
