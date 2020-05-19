@@ -48,7 +48,7 @@ namespace AppLecturas.Controlador
             else
                 StrIds = "0";
             //llamada al script php para consultar los usuarios, devuelve un objeto tipo json de la tabla usuario    
-            Url = "http://" + Servidor + "/applecturas/logica/personas/sync_server.php" +
+            Url = "http://" + Servidor + "/api_rest/srvabonados.php" +
                 "?StrIds=" + StrIds;
             HttpClient client = getCliente();
             var resp = await client.GetAsync(Url);
@@ -66,7 +66,15 @@ namespace AppLecturas.Controlador
             {
                 foreach (ClsPersona item in Consulta)
                 {
-                    await App.Database.SavePersonaAsync(item);
+                    try
+                    {
+                        await App.Database.SavePersonaAsync(item);
+                    }catch(Exception x)
+                    {
+                        Console.Out.Write(x.Message);
+                    }
+                    
+
                 }
                 return true;
             }

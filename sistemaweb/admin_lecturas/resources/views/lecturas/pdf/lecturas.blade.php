@@ -4,27 +4,26 @@
     <table class="table table-hover table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Fecha</th>
-                <th>Detalle</th>
-                <th>Observación</th>
                 <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Sector</th>
-                <th>Codigo</th>
+                <th>Anterior</th>
+                <th>Actual</th>
+                <th>Consumo</th>
+                <th>Básico</th>
+                <th>Exceso</th>
             </tr>                            
         </thead>
         <tbody>
-            @foreach($requerimientos as $requerimiento)
-            <tr>
-                <td>{{ $requerimiento->id }}</td>
-                <td>{{ $requerimiento->fecha }}</td>
-                <td>{{ $requerimiento->detalle }}</td>
-                <td>{{ $requerimiento->observacion }}</td>
-                <td>{{ $requerimiento->nombre }}</td>
-                <td>{{ $requerimiento->apellido }}</td>
-                <td>{{ $requerimiento->sector }}</td>
-                <td>{{ $requerimiento->codigo }}</td>
+            @foreach($lecturas as $lectura)
+            <tr>              
+            <td>{{ $lectura->id }}</td>
+            <td>{{ $lectura->fecha }}</td>
+            <td>{{ $lectura->nombre }} {{ $lectura->apellido }}</td>
+            <td>{{ $lectura->anterior }}</td>
+            <td>{{ $lectura->actual }}</td>
+            <td>{{ $lectura->consumo }}</td>
+            <td>{{ $lectura->basico }}</td>
+            <td>{{ $lectura->exceso }}</td>
             </tr>
             @endforeach
         </tbody>

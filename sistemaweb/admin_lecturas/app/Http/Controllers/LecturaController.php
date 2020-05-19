@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Lectura;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class LecturaController extends Controller
 {
@@ -18,7 +19,7 @@ class LecturaController extends Controller
         $lecturas = Lectura::
             Join('medidors', 'medidors.id', '=', 'lecturas.medidor_id')
             ->Join('personas', 'personas.id', '=', 'medidors.persona_id')
-            ->select('lecturas.*' ,'personas.nombre','personas.apellido','personas.sector','medidors.codigo')
+            ->select('lecturas.*' ,'personas.nombre','personas.apellido','medidors.sector','medidors.codigo')
             ->paginate();
         //return $medidores;
         return view('lecturas.index', compact('lecturas'));
@@ -100,7 +101,7 @@ class LecturaController extends Controller
         $lecturas = Lectura::
             Join('medidors', 'medidors.id', '=', 'lecturas.medidor_id')
             ->Join('personas', 'personas.id', '=', 'medidors.persona_id')
-            ->select('lecturas.*' ,'personas.nombre','personas.apellido','personas.sector','medidors.codigo');
+            ->select('lecturas.*' ,'personas.nombre','personas.apellido','medidors.sector','medidors.codigo')->get();
         $pdf = PDF::loadView('lecturas.pdf.lecturas', compact('lecturas'));
 
         return $pdf->download('listado.pdf');

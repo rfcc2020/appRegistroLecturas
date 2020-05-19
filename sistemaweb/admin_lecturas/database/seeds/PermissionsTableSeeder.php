@@ -69,66 +69,35 @@ class PermissionsTableSeeder extends Seeder
             'description'   => 'Podría eliminar cualquier rol del sistema',      
         ]);
 
-        //Roles
+        //Abonados
         Permission::create([
-            'name'          => 'Navegar productos',
-            'slug'          => 'products.index',
-            'description'   => 'Lista y navega todos los productos del sistema',
-        ]);
-
-        Permission::create([
-            'name'          => 'Ver detalle de un producto',
-            'slug'          => 'products.show',
-            'description'   => 'Ve en detalle cada producto del sistema',            
-        ]);
-        
-        Permission::create([
-            'name'          => 'Creación de productos',
-            'slug'          => 'products.create',
-            'description'   => 'Podría crear nuevos productos en el sistema',
-        ]);
-        
-        Permission::create([
-            'name'          => 'Edición de productos',
-            'slug'          => 'products.edit',
-            'description'   => 'Podría editar cualquier dato de un producto del sistema',
-        ]);
-        
-        Permission::create([
-            'name'          => 'Eliminar productos',
-            'slug'          => 'products.destroy',
-            'description'   => 'Podría eliminar cualquier producto del sistema',      
-        ]);
-
-//Personas
-        Permission::create([
-            'name'          => 'Navegar personas',
+            'name'          => 'Navegar Abonados',
             'slug'          => 'personas.index',
-            'description'   => 'Lista y navega todas las personas del sistema',
+            'description'   => 'Lista y navega todos los Abonados del sistema',
         ]);
 
         Permission::create([
-            'name'          => 'Ver detalle de una persona',
+            'name'          => 'Ver detalle de un Abonado',
             'slug'          => 'personas.show',
-            'description'   => 'Ve en detalle cada persona del sistema',            
+            'description'   => 'Ve en detalle cada abonado del sistema',            
         ]);
         
         Permission::create([
-            'name'          => 'Creación de personas',
+            'name'          => 'Creación de Abonado',
             'slug'          => 'personas.create',
-            'description'   => 'Podría crear nuevas personas en el sistema',
+            'description'   => 'Podría crear nuevos abonados en el sistema',
         ]);
         
         Permission::create([
-            'name'          => 'Edición de personas',
+            'name'          => 'Edición de Abonado',
             'slug'          => 'personas.edit',
-            'description'   => 'Podría editar cualquier dato de una persona del sistema',
+            'description'   => 'Podría editar cualquier dato de un abonado del sistema',
         ]);
         
         Permission::create([
-            'name'          => 'Eliminar personas',
+            'name'          => 'Eliminar Abonado',
             'slug'          => 'personas.destroy',
-            'description'   => 'Podría eliminar cualquier persona del sistema',      
+            'description'   => 'Podría eliminar cualquier Abonado del sistema',      
         ]);
 //Medidores
         Permission::create([
@@ -154,53 +123,11 @@ class PermissionsTableSeeder extends Seeder
             'slug'          => 'medidores.destroy',
             'description'   => 'Podría eliminar cualquier medidor del sistema',      
         ]);
-//Requerimientos
+//Lecturas
         Permission::create([
-            'name'          => 'Navegar Requerimientos',
-            'slug'          => 'requerimientos.index',
-            'description'   => 'Lista y navega todos los requerimientos del sistema',
-        ]);
-
-        Permission::create([
-            'name'          => 'Ver detalle de requerimiento',
-            'slug'          => 'requerimientos.show',
-            'description'   => 'Ve en detalle cada requerimiento del sistema',            
-        ]);
-        
-        Permission::create([
-            'name'          => 'Edición de requerimiento',
-            'slug'          => 'requerimientos.edit',
-            'description'   => 'Podría editar cualquier dato de un requerimiento del sistema',
-        ]);
-        
-        Permission::create([
-            'name'          => 'Eliminar requerimiento',
-            'slug'          => 'requerimientos.destroy',
-            'description'   => 'Podría eliminar cualquier requerimiento del sistema',      
-        ]);
-//Notificaciones
-        Permission::create([
-            'name'          => 'Navegar Notificaciones',
-            'slug'          => 'notificaciones.index',
-            'description'   => 'Lista y navega todos las notificaciones del sistema',
-        ]);
-
-        Permission::create([
-            'name'          => 'Ver detalle de notificacion',
-            'slug'          => 'notificaciones.show',
-            'description'   => 'Ve en detalle cada notificacion del sistema',            
-        ]);
-        
-        Permission::create([
-            'name'          => 'Edición de notificaciones',
-            'slug'          => 'notificaciones.edit',
-            'description'   => 'Podría editar cualquier dato de una notificacion del sistema',
-        ]);
-        
-        Permission::create([
-            'name'          => 'Eliminar notificacion',
-            'slug'          => 'notificaciones.destroy',
-            'description'   => 'Podría eliminar cualquier notificacion del sistema',      
+            'name'          => 'Navegar Lecturas',
+            'slug'          => 'lecturas.index',
+            'description'   => 'Lista y navega todas las lecturas del sistema',
         ]);
     }
 }

@@ -44,7 +44,14 @@ namespace AppLecturas.Vista
 
         private async void Button_Clicked_SincronizarAsync(object sender, EventArgs e)
         {
-            await Manager.Sincronizar();
+            try
+            {
+                await Manager.Sincronizar();
+            }
+            catch(Exception x)
+            {
+                await DisplayAlert("Error", x.Message, "ok");
+            }
         }
     }
 }

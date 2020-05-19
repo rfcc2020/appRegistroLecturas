@@ -19,7 +19,7 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
     <LayoutDir>C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>CDB7B3AEC8113E230BC39DCCE0063DDF4C4AD049FEB7058507DC148DFFE61CB7</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>CAF6D0E48C6DB0A23A54A4E347EFEA5937B798FDDBC260307866CAE9513C8D3C</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>5b3748c2-7622-4db5-82b5-dc1bbcafffdc_1.0.0.0_x86__4e5qs8q3t1ytc</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>5b3748c2-7622-4db5-82b5-dc1bbcafffdc_4e5qs8q3t1ytc!App</RegisteredUserModeAppID>
     <RegisteredPackageID>5b3748c2-7622-4db5-82b5-dc1bbcafffdc</RegisteredPackageID>
@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-04-24T02:10:24.173</Modified>
+      <Modified>2020-05-19T10:55:33.072</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\AppLecturas.UWP.exe">
       <PackagePath>entrypoint\AppLecturas.UWP.exe</PackagePath>
-      <Modified>2020-04-24T02:10:21.854</Modified>
+      <Modified>2020-05-19T10:55:29.306</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\bcrypt.net-next\3.3.3\lib\netstandard2.0\BCrypt.Net-Next.dll">
       <PackagePath>BCrypt.Net-Next.dll</PackagePath>
@@ -768,7 +768,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas\bin\Debug\netstandard2.0\AppLecturas.dll">
       <PackagePath>AppLecturas.dll</PackagePath>
-      <Modified>2020-04-24T02:17:34.001</Modified>
+      <Modified>2020-05-19T12:20:06.552</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
@@ -919,11 +919,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-04-24T02:10:21.615</Modified>
+      <Modified>2020-05-19T10:55:28.793</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-04-24T02:10:21.616</Modified>
+      <Modified>2020-05-19T10:55:28.795</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -935,11 +935,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-04-09T12:30:31.955</Modified>
+      <Modified>2020-05-11T21:22:22.975</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\Core\AppLecturas.UWP.exe">
       <PackagePath>AppLecturas.UWP.exe</PackagePath>
-      <Modified>2020-04-24T02:10:24.130</Modified>
+      <Modified>2020-05-19T10:55:33.032</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

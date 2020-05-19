@@ -49,7 +49,7 @@ namespace AppLecturas.Controlador
             else
                 StrIds = "0";
             //llamada al script php para consultar los usuarios, devuelve un objeto tipo json de la tabla usuario    
-            Url = "http://" + Servidor + "/applecturas/logica/medidor/sync_server.php" +
+            Url = "http://" + Servidor + "/api_rest/srvmedidores.php" +
                 "?StrIds=" + StrIds;
             HttpClient client = getCliente();
             var resp = await client.GetAsync(Url);

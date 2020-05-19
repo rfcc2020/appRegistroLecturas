@@ -23,7 +23,7 @@ namespace AppLecturas
             {
                 if (database == null)
                 {
-                    database = new Base.Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "applecturas230420.db3"));
+                    database = new Base.Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "applecturas19052020_1.db3"));
                 }
                 return database;
             }

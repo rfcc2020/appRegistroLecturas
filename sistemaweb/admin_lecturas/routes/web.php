@@ -113,7 +113,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::put('lecturas/{lectura}', 'LecturaController@update')->name('lecturas.update')
 		->middleware('permission:lecturas.edit');
 
-	Route::get('lecturas/{lectura}', 'LecturaController@show')->name('Lecturas.show')
+	Route::get('lecturas/{lectura}', 'LecturaController@show')->name('lecturas.show')
 		->middleware('permission:lecturas.show');
 
 	Route::delete('lecturas/{lectura}', 'LecturaController@destroy')->name('lecturas.destroy')

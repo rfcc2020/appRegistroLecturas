@@ -37,25 +37,47 @@ namespace AppLecturas.Controlador
         {
             return await App.Database.GetLecturaAsync("0");
         }
+      
         public async Task<string> Sincronizar()
         {
             var ListLecturas = await GetNoSincronizados();
-            string TxtJSON = JsonConvert.SerializeObject(ListLecturas, Formatting.Indented);
-            Url = "http://" + Servidor + "/applecturas/logica/lectura/sync_app.php" +
-                "?TxtJSON=" + TxtJSON;
+            Url = "http://" + Servidor+ "/api_rest/srvlecturas.php";
             HttpClient client = getCliente();
-            var resp = await client.GetAsync(Url);
-            if (resp.IsSuccessStatusCode)//si el codigo devuelto es satisfactorio se devuelve un objeto enumerable
+            foreach (ClsLectura item in ListLecturas)
             {
-                string content = await resp.Content.ReadAsStringAsync();
-                var ListLecturasSinc = JsonConvert.DeserializeObject<IEnumerable<ClsLectura>>(content);//retorna un objeto json desserializado
-                foreach (ClsLectura item in ListLecturasSinc)
+                var formContent = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("Fecha", item.Fecha.Year + "/"+item.Fecha.Month+"/"+item.Fecha.Day),
+                new KeyValuePair<string, string>("Anterior", item.Anterior.ToString()),
+                new KeyValuePair<string, string>("Actual", item.Actual.ToString()),
+                new KeyValuePair<string, string>("Consumo", item.Consumo.ToString()),
+                new KeyValuePair<string, string>("Basico", item.Basico.ToString()),
+                new KeyValuePair<string, string>("Exceso", item.Exceso.ToString()),
+                new KeyValuePair<string, string>("Observacion", item.Observacion.ToString()),
+                new KeyValuePair<string, string>("Imagen", ""),
+                new KeyValuePair<string, string>("Latitud", item.Latitud.ToString()),
+                new KeyValuePair<string, string>("Longitud", item.Longitud.ToString()),
+                new KeyValuePair<string, string>("Estado", "A"),
+                new KeyValuePair<string, string>("Medidor_id", item.Medidor_id.ToString()),
+                new KeyValuePair<string, string>("Created_at", item.Created_at.Year+"/"+item.Created_at.Month+"/"+item.Created_at.Day+" "+item.Created_at.ToShortTimeString()),
+                new KeyValuePair<string, string>("Updated_at", item.Updated_at.Year+"/"+item.Updated_at.Month+"/"+item.Updated_at.Day+" "+item.Updated_at.ToShortTimeString()),
+            });
+
+                //var myHttpClient = new HttpClient();
+               
+                var response = await client.PostAsync(Url, formContent);
+                if(response.IsSuccessStatusCode)
                 {
-                    await App.Database.UpdateLecturaAsync(item.Id, item.IdServer, item.Estado);
+                    var json = await response.Content.ReadAsStringAsync();
+                    ClsLectura result = JsonConvert.DeserializeObject<ClsLectura>(json);
+                    await App.Database.UpdateLecturaAsync(item.Id, result.IdServer, "1");
                 }
+                    
             }
+
             return "0";//devuelve una lista vacía
         }
+
         //método que invoca al script que elimina registros en la tabla lectura de la base de datos
         public async Task<string> DeleteAsync(ClsLectura ObjLectura)
         {

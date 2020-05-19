@@ -7,12 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     lecturas
-                    @can('lectura.create')
-                    <a href="{{ route('lecturas.create') }}" 
-                    class="btn btn-sm btn-primary pull-right">
-                        Crear
-                    </a>
-                    @endcan                
+                                  
                     <a href="{{ route('lecturas.pdf') }}" class="btn btn-sm btn-primary pull-right">
                         Reporte en PDF
                     </a>    
@@ -52,24 +47,7 @@
                                     </a>
                                 </td>
                                 @endcan
-                                @can('lecturas.edit')
-                                <td width="10px">
-                                    <a href="{{ route('lecturas.edit', $lectura->id) }}" 
-                                    class="btn btn-sm btn-default">
-                                        editar
-                                    </a>
-                                </td>
-                                @endcan
-                                @can('lecturas.destroy')
-                                <td width="10px">
-                                    {!! Form::open(['route' => ['lecturas.destroy', $lectura->id], 
-                                    'method' => 'DELETE']) !!}
-                                        <button class="btn btn-sm btn-danger">
-                                            Eliminar
-                                        </button>
-                                    {!! Form::close() !!}
-                                </td>
-                                @endcan
+                                
                             </tr>
                             @endforeach
                         </tbody>

@@ -99,6 +99,14 @@ namespace AppLecturas.Vista
                 LblNombres.Text = this.ObjPersona.Nombre + " " + this.ObjPersona.Apellido;
                 txtCedula.Text = this.ObjPersona.Cedula;
             }
+
+            var LecturaAnterior = await manager.ConsultarAnterior(this.ObjMedidor.Id);
+            if(LecturaAnterior.Count == 1)
+            {
+                ClsLectura ObjLecAnterior = LecturaAnterior.First();
+                TxtAnterior.Text = ObjLecAnterior.Actual.ToString();
+                ObjLectura.Anterior = ObjLecAnterior.Actual;
+            }            
         }
 
         public PagIngresoLectura(ClsMedidor Obj, bool opc)//constructor
@@ -111,7 +119,8 @@ namespace AppLecturas.Vista
             this.ObjLectura = new ClsLectura();
             this.ObjLectura.Created_at = DateTime.Now;//asigna fecha actual
             this.ObjLectura.Updated_at = DateTime.Now;
-            ObjLectura.Fecha = DateTime.Today;//asignación de fecha actual
+            this.ObjLectura.Fecha = DateTime.Today;//asignación de fecha actual
+            this.ObjLectura.Medidor_id = this.ObjMedidor.Id;
             manager = new CtrlLectura();//instancia de clase control
             BindingContext = this.ObjLectura;//indica que la vista se relacionará con los valores del objeto
             this.ObjLectura.Localizar();
