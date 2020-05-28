@@ -21,14 +21,13 @@ namespace AppLecturas.Modelo
         public float Basico { get; set; }
         public float Exceso { get; set; }
         public string Observacion { get; set; }
-
-        
+        public string Estado { get; set; }//propiedad
         public double Latitud { get; set; }
         public double Longitud { get; set; }
         public int Medidor_id { get; set; }
         public int User_id { get; set; }
         public int IdServer { get; set; }
-        
+        public string StrImagen { get; set; }
         private float CantidadConsumo = 5;
         private float ValorConsumo = 4;
         private float VaLorExceso = 5;

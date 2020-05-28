@@ -20,9 +20,6 @@ class MedidorTableSeeder extends Seeder
             'modelo'		=> 'abc',
             'sector'		=> 'portete',
             'imagen'		=> 'sinimg.jpg',
-            'latitud'		=> '0',
-            'longitud'		=> '0',
-            'estado'		=> 'A',
             'persona_id'		=> '1',
         ]);
         Medidor::create([
@@ -32,9 +29,6 @@ class MedidorTableSeeder extends Seeder
             'modelo'        => 'abc',
             'sector'        => 'portete',
             'imagen'        => 'sinimg.jpg',
-            'latitud'       => '0',
-            'longitud'      => '0',
-            'estado'        => 'A',
             'persona_id'        => '2',
         ]);
         Medidor::create([
@@ -44,9 +38,6 @@ class MedidorTableSeeder extends Seeder
             'modelo'        => 'abc',
             'sector'        => 'portete',
             'imagen'        => 'sinimg.jpg',
-            'latitud'       => '0',
-            'longitud'      => '0',
-            'estado'        => 'A',
             'persona_id'        => '3',
         ]);
         Medidor::create([
@@ -56,9 +47,6 @@ class MedidorTableSeeder extends Seeder
             'modelo'        => 'abc',
             'sector'        => 'portete',
             'imagen'        => 'sinimg.jpg',
-            'latitud'       => '0',
-            'longitud'      => '0',
-            'estado'        => 'A',
             'persona_id'        => '4',
         ]);
         Medidor::create([
@@ -68,9 +56,6 @@ class MedidorTableSeeder extends Seeder
             'modelo'        => 'abc',
             'sector'        => 'portete',
             'imagen'        => 'sinimg.jpg',
-            'latitud'       => '0',
-            'longitud'      => '0',
-            'estado'        => 'A',
             'persona_id'        => '5',
         ]);
         Medidor::create([
@@ -80,9 +65,6 @@ class MedidorTableSeeder extends Seeder
             'modelo'        => 'abc',
             'sector'        => 'portete',
             'imagen'        => 'sinimg.jpg',
-            'latitud'       => '0',
-            'longitud'      => '0',
-            'estado'        => 'A',
             'persona_id'        => '6',
         ]);
         Medidor::create([
@@ -92,9 +74,6 @@ class MedidorTableSeeder extends Seeder
             'modelo'        => 'abc',
             'sector'        => 'pedregal',
             'imagen'        => 'sinimg.jpg',
-            'latitud'       => '0',
-            'longitud'      => '0',
-            'estado'        => 'A',
             'persona_id'        => '7',
         ]);
         Medidor::create([
@@ -104,9 +83,6 @@ class MedidorTableSeeder extends Seeder
             'modelo'        => 'abc',
             'sector'        => 'portete',
             'imagen'        => 'sinimg.jpg',
-            'latitud'       => '0',
-            'longitud'      => '0',
-            'estado'        => 'A',
             'persona_id'        => '8',
         ]);
         Medidor::create([
@@ -116,9 +92,6 @@ class MedidorTableSeeder extends Seeder
             'modelo'        => 'abc',
             'sector'        => 'portete',
             'imagen'        => 'sinimg.jpg',
-            'latitud'       => '0',
-            'longitud'      => '0',
-            'estado'        => 'A',
             'persona_id'        => '9',
         ]);
         Medidor::create([
@@ -128,10 +101,52 @@ class MedidorTableSeeder extends Seeder
             'modelo'        => 'abc',
             'sector'        => 'portete',
             'imagen'        => 'sinimg.jpg',
-            'latitud'       => '0',
-            'longitud'      => '0',
-            'estado'        => 'A',
             'persona_id'        => '10',
+        ]);
+        Medidor::create([
+            'codigo'        => 'MED11',
+            'numero'        => '11',
+            'marca'     => 'LAsi',
+            'modelo'        => 'abc',
+            'sector'        => 'portete',
+            'imagen'        => 'sinimg.jpg',
+            'persona_id'        => '11',
+        ]);
+        Medidor::create([
+            'codigo'        => 'MED12',
+            'numero'        => '12',
+            'marca'     => 'LAsi',
+            'modelo'        => 'abc',
+            'sector'        => 'portete',
+            'imagen'        => 'sinimg.jpg',
+            'persona_id'        => '12',
+        ]);
+        Medidor::create([
+            'codigo'        => 'MED13',
+            'numero'        => '13',
+            'marca'     => 'LAsi',
+            'modelo'        => 'abc',
+            'sector'        => 'rayo loma',
+            'imagen'        => 'sinimg.jpg',
+            'persona_id'        => '13',
+        ]);
+        Medidor::create([
+            'codigo'        => 'MED14',
+            'numero'        => '14',
+            'marca'     => 'LAsi',
+            'modelo'        => 'abc',
+            'sector'        => 'portete',
+            'imagen'        => 'sinimg.jpg',
+            'persona_id'        => '14',
+        ]);
+        Medidor::create([
+            'codigo'        => 'MED15',
+            'numero'        => '15',
+            'marca'     => 'LAsi',
+            'modelo'        => 'abc',
+            'sector'        => 'portete',
+            'imagen'        => 'sinimg.jpg',
+            'persona_id'        => '15',
         ]);
     }
 }

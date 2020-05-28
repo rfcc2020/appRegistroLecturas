@@ -25,53 +25,90 @@ namespace AppLecturas.Controlador
         //método asíncrono que devuelve un objeto enumerable(lista) de tipo clsmedidor del paquete modelo
         public async Task<IEnumerable<ClsMedidor>> Consultar(string Sector)
         {
-            return await App.Database.GetMedidorAsync(Sector);
-
+            try
+            {
+                return await App.Database.GetMedidorAsync(Sector);
+            }
+            catch
+            {
+                return Enumerable.Empty<ClsMedidor>();//devuelve una lista vacía }
+            }
+        }
+        //método asíncrono que devuelve un objeto enumerable(lista) de tipo clsmedidor del paquete modelo
+        public async Task<IEnumerable<ClsMedidor>> Consultar(int Id)
+        {
+            try
+            {
+                return await App.Database.GetMedidorAsync(Id);
+            }
+            catch
+            {
+                return Enumerable.Empty<ClsMedidor>();//devuelve una lista vacía }
+            }
         }
         //método que invoca al script php que consulta un un medidor filtrado por el id de persona asignada.
         public async Task<IEnumerable<ClsMedidor>> ConsultarIdPersona(int IdPersona)
         {
-            return await App.Database.GetMedidorPersonaAsync(IdPersona);
+            try
+            {
+                return await App.Database.GetMedidorPersonaAsync(IdPersona);
+            }
+            catch
+            {
+                return Enumerable.Empty<ClsMedidor>();//devuelve una lista vacía }
+            }
         }
+        //método asíncrono que devuelve un objeto enumerable(lista) de tipo clsusuario del paquete modelo filtrado por id de perfil
         //método asíncrono que devuelve un objeto enumerable(lista) de tipo clsusuario del paquete modelo filtrado por id de perfil
         private async Task<IEnumerable<ClsMedidor>> GetNuevos()
         {
-            List<ClsMedidor> ListMedidores = await App.Database.GetMedidorAsync();
-            string StrIds = "";
-            if (ListMedidores.Count > 0)
+            try
             {
-                foreach (ClsMedidor item in ListMedidores)
+                List<ClsMedidor> ListMedidores = await App.Database.GetMedidorAsync();
+                string StrIds = "";
+                if (ListMedidores.Count > 0)
                 {
-                    StrIds = StrIds + item.Id + ",";
+                    foreach (ClsMedidor item in ListMedidores)
+                    {
+                        StrIds = StrIds + item.Id + ",";
+                    }
+                    StrIds = StrIds.Substring(0, StrIds.Length - 1);
                 }
-                StrIds = StrIds.Substring(0, StrIds.Length - 1);
+                else
+                    StrIds = "0";
+                //llamada al script php para consultar los usuarios, devuelve un objeto tipo json de la tabla usuario    
+                Url = Servidor + "srvmedidores.php" +
+                    "?StrIds=" + StrIds;
+                HttpClient client = getCliente();
+                var resp = await client.GetAsync(Url);
+                if (resp.IsSuccessStatusCode)//si el codigo devuelto es satisfactorio se devuelve un objeto enumerable
+                {
+                    string content = await resp.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<IEnumerable<ClsMedidor>>(content);//retorna un objeto json desserializado
+                }
             }
-            else
-                StrIds = "0";
-            //llamada al script php para consultar los usuarios, devuelve un objeto tipo json de la tabla usuario    
-            Url = "http://" + Servidor + "/api_rest/srvmedidores.php" +
-                "?StrIds=" + StrIds;
-            HttpClient client = getCliente();
-            var resp = await client.GetAsync(Url);
-            if (resp.IsSuccessStatusCode)//si el codigo devuelto es satisfactorio se devuelve un objeto enumerable
+            catch
             {
-                string content = await resp.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<IEnumerable<ClsMedidor>>(content);//retorna un objeto json desserializado
+                return Enumerable.Empty<ClsMedidor>();//devuelve una lista vacía
             }
             return Enumerable.Empty<ClsMedidor>();//devuelve una lista vacía
         }
         public async Task<bool> SincronizarAsync()
         {
-            var Consulta = await GetNuevos();
-            if (Consulta != null)
+            try
             {
-                foreach (ClsMedidor item in Consulta)
+                var Consulta = await GetNuevos();
+                if (Consulta != null)
                 {
-                    await App.Database.SaveMedidorAsync(item);
+                    foreach (ClsMedidor item in Consulta)
+                    {
+                        await App.Database.SaveMedidorAsync(item);
+                    }
+                    return true;
                 }
-                return true;
             }
+            catch { return false; }
             return false;
         }
-    }
+}
 }

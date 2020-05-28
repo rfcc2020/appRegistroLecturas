@@ -23,20 +23,8 @@
 	{{ Form::file('imagen', null, ['class' => 'form-control']) }}
 </div>
 <div class="form-group">
-	{{ Form::label('Latitud', 'Latitud') }}
-	{{ Form::text('latitud', null, ['class' => 'form-control']) }}
-</div>
-<div class="form-group">
-	{{ Form::label('Longitud', 'Longitud') }}
-	{{ Form::text('longitud', null, ['class' => 'form-control']) }}
-</div>
-<div class="form-group">
-	{{ Form::label('idpersona', 'Id de Persona') }}
+	{{ Form::label('idpersona', 'Id del Abonado') }}
 	{{ Form::text('persona_id', null, ['class' => 'form-control']) }}
-</div>
-<div class="form-group">
-	{{ Form::label('Estado', 'Estado') }}
-	{{ Form::checkbox('estado', 'A', true, ['class' => 'form-control']) }}
 </div>
 <div class="form-group">
 	{{ Form::submit('Guardar', ['class' => 'btn btn-sm btn-primary']) }}

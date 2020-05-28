@@ -12,7 +12,7 @@ namespace AppLecturas
     public partial class App : Application,ILoginManager
     {
         static ILoginManager ObjLoginManager;//objeto de la interfaz Iloginmanager
-        public static App Current;//variable local
+        public new static App Current;//variable local
         public static int Valor;//variable pública
 
         static Base.Database database;

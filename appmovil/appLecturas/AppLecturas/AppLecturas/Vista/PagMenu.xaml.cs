@@ -29,16 +29,34 @@ namespace AppLecturas.Vista
             App.Current.Logout();
         }
         
-        private void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            ClsMedidor ObjMedidor = e.SelectedItem as ClsMedidor;//asignar el objeto seleccionado a la variable obj
-            ((NavigationPage)this.Parent).PushAsync(new PagIngresoLectura(ObjMedidor, true));//mostrar la vista adminpersona con los datos cargados para modificar o eliminar
+            try
+            {
+                ClsMedidor ObjMedidor = e.SelectedItem as ClsMedidor;//asignar el objeto seleccionado a la variable obj
+                CtrlLectura ObjCtrlLectura = new CtrlLectura();
+                var LecturaMes = await ObjCtrlLectura.GetLecturaMedidorAsync(DateTime.Today, ObjMedidor.Id);
+                if (!LecturaMes)
+                    await ((NavigationPage)this.Parent).PushAsync(new PagIngresoLectura(ObjMedidor, true));//mostrar la vista adminpersona con los datos cargados para modificar o eliminar
+                else
+                    await DisplayAlert("Mensaje", "Ya se han ingresado datos de este mes para el medidor seleccionado", "ok");
+            }
+            catch(Exception ex)
+            {
+                await DisplayAlert("Mensaje", ex.Message, "ok");
+            }
         }
 
         private async void ButConsultaMedidores_ClickedAsync(object sender, EventArgs e)
         {
             CtrlMedidor Manager = new CtrlMedidor();
-            listView.ItemsSource = await Manager.Consultar(ObjMiUsuario.Sector);
+            try
+            {
+                listView.ItemsSource = await Manager.Consultar(ObjMiUsuario.Sector);
+            }catch(Exception ex)
+            {
+                await DisplayAlert("Mensaje", ex.Message, "ok");
+            }
         }
 
         private void ButConsultarLectura_Clicked(object sender, EventArgs e)

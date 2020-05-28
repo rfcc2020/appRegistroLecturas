@@ -32,15 +32,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
         AND
         u.id not in
         "."(".$filtro.")";
+       try
+    {
       $sql = $dbConn->prepare($txtSql);
       $sql->execute();
       header("HTTP/1.1 200 OK");
-      echo json_encode(  $sql->fetchAll()  );
+      echo json_encode(  $sql->fetchAll() );
       exit();
+    }
+    catch (PDOException $e)
+    {
+        header("HTTP/1.1 400 Bad Request");
+    }
     }
     else {
       //Mostrar lista de abonados
-      $sql = $dbConn->prepare("SELECT * FROM medidors");
+      $sql = $dbConn->prepare("SELECT * FROM users");
       $sql->execute();
       $sql->setFetchMode(PDO::FETCH_ASSOC);
       header("HTTP/1.1 200 OK");

@@ -101,8 +101,9 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('medidores/{medidor}/edit', 'MedidorController@edit')->name('medidores.edit')
 		->middleware('permission:medidores.edit');
 	//Lecturas
-	Route::post('lecturas/store', 'LecturaController@store')->name('lecturas.store')
-		->middleware('permission:lecturas.create');
+	
+Route::put('lecturas/store', 'LecturaController@update')->name('lecturas.update')
+		->middleware('permission:lecturas.edit');
 
 	Route::get('lecturas', 'LecturaController@index')->name('lecturas.index')
 		->middleware('permission:lecturas.index');
@@ -123,5 +124,5 @@ Route::middleware(['auth'])->group(function () {
 		->middleware('permission:lecturas.edit');
 
 	Route::get('descargar-lecturas', 'LecturaController@pdf')->name('lecturas.pdf');
-
+//////
 });

@@ -11,10 +11,11 @@ namespace AppLecturas.Controlador
         public string Servidor { get; set; }//Propiedad para manejar la ip del servidor
         public CtrlBase()//constructor de la clase
         {
-            if (Device.RuntimePlatform == Device.Android)//condicional en caso de plataforma android
+            /*if (Device.RuntimePlatform == Device.Android)//condicional en caso de plataforma android
                 Servidor = "10.0.2.2";//ip servidor local android
             else
-                Servidor = "localhost";//ip servidor local otras plataformas
+                Servidor = "localhost";//ip servidor local otras plataformas*/
+            Servidor = "https://weblecturas.000webhostapp.com/api_rest/";
         }
     }
 }

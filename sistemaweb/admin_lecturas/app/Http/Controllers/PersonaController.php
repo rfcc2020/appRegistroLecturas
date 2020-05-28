@@ -41,21 +41,23 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-         $request->validate([
-            'cedula'=>'required',
-            'nombre'=>'required',
-            'apellido'=>'required'
+        
+        //validaciones
+        $validator = $request->validate([
+        'cedula'=>'required|unique:personas|max:10',
+        'nombre'=>'required|max:100',
+        'apellido'=>'required|max:100'
         ]);
+        
         $personaNueva = new Persona;
         $personaNueva->cedula = $request->cedula;
         $personaNueva->nombre = $request->nombre;
         $personaNueva->apellido = $request->apellido;
         $personaNueva->telefono = $request->telefono;
         $personaNueva->email = $request->email;
-        $personaNueva->estado = $request->estado;
         $personaNueva->save();
-        return back()->with('info','Datos de abonado agregados correctamente');
+        return back()->with('info','Datos de abonado agregados correctamente');          
+         
     }
 
     /**
@@ -96,18 +98,19 @@ class PersonaController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $request->validate([
-            'cedula'=>'required',
-            'nombre'=>'required',
-            'apellido'=>'required'
+        //validaciones
+        $validator = $request->validate([
+        'cedula'=>'required|max:10',
+        'nombre'=>'required|max:100',
+        'apellido'=>'required|max:100'
         ]);
+
         $personaUpdate = Persona::findOrFail($id);
         $personaUpdate->cedula = $request->cedula;
         $personaUpdate->nombre = $request->nombre;
         $personaUpdate->apellido = $request->apellido;
         $personaUpdate->telefono = $request->telefono;
         $personaUpdate->email = $request->email;
-        $personaUpdate->estado = $request->estado;
         $personaUpdate->save();
         return back()->with('info','Datos de abonado actualizados correctamente');
     }

@@ -32,25 +32,40 @@ namespace AppLecturas.Vista
 
         private async void Button_ClickedAsync(object sender, EventArgs e)
         {
-            listView.ItemsSource = await Manager.Get();
-            
+            try
+            {
+                listView.ItemsSource = await Manager.Get();
+            }
+            catch(Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "ok");
+            }
+
         }
 
-        private void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            ClsLectura ObjLectura = e.SelectedItem as ClsLectura;//asignar el objeto seleccionado a la variable obj
-            //((NavigationPage)this.Parent).PushAsync(new PagIngresoLectura(ObjLectura, false));//mostrar la vista adminpersona con los datos cargados para modificar o eliminar
+            try
+            {
+                ClsLectura ObjLectura = e.SelectedItem as ClsLectura;//asignar el objeto seleccionado a la variable obj
+                await ((NavigationPage)this.Parent).PushAsync(new PagIngresoLectura(ObjLectura, false));//mostrar la vista adminpersona con los datos cargados para modificar o eliminar
+            }
+            catch(Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "ok");
+            }
         }
 
         private async void Button_Clicked_SincronizarAsync(object sender, EventArgs e)
         {
             try
             {
-                await Manager.Sincronizar();
+               var StrMensaje = await Manager.Sincronizar();
+               await DisplayAlert("Información", StrMensaje, "ok");
             }
-            catch(Exception x)
+            catch(Exception ex)
             {
-                await DisplayAlert("Error", x.Message, "ok");
+                await DisplayAlert("Error", ex.Message, "ok");
             }
         }
     }

@@ -8,7 +8,7 @@
                 <div class="panel-heading">Requerimientos</div>
 
                 <div class="panel-body">                    
-                    {{ Form::open(['route' => 'requerimientos.store']) }}
+                    {{ Form::open(['route' => 'lecturas.store']) }}
 
                         @include('requerimientos.partials.form')
                         

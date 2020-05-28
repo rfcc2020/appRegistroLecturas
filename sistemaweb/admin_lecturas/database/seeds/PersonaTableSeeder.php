@@ -19,7 +19,6 @@ class PersonaTableSeeder extends Seeder
             'Apellido'   	=> 'Cuzco',
             'telefono'		=> '2850544',
             'email'		=> 'ingrcuzco@gmail.com',
-            'estado'		=> 'A',
         ]);
 
 		Persona::create([
@@ -28,7 +27,6 @@ class PersonaTableSeeder extends Seeder
             'Apellido'   	=> 'Andrade',
             'telefono'		=> '0981828905',
             'email'		=> 'rmandrade@gmail.com',
-            'estado'		=> 'A',
         ]);
 
         Persona::create([
@@ -37,7 +35,6 @@ class PersonaTableSeeder extends Seeder
             'Apellido'   	=> 'Arévalo',
             'telefono'		=> '0981828905',
             'email'		=> 'ekarevalo@gmail.com',
-            'estado'		=> 'A',
         ]);
 
         Persona::create([
@@ -46,7 +43,6 @@ class PersonaTableSeeder extends Seeder
             'Apellido'   	=> 'Teodoro',
             'telefono'		=> '7000569',
             'email'		=> 'tastudillo@gmail.com',
-            'estado'		=> 'A',
         ]);
 
         Persona::create([
@@ -55,7 +51,6 @@ class PersonaTableSeeder extends Seeder
             'Apellido'   	=> 'Banegas',
             'telefono'		=> '7000112',
             'email'		=> 'mabanegas@gmail.com',
-            'estado'		=> 'A',
         ]);
 
         Persona::create([
@@ -64,7 +59,6 @@ class PersonaTableSeeder extends Seeder
             'Apellido'   	=> 'Banegas',
             'telefono'		=> '7000113',
             'email'		=> 'rbanegas@gmail.com',
-            'estado'		=> 'A',
         ]);
 
 		Persona::create([
@@ -73,7 +67,6 @@ class PersonaTableSeeder extends Seeder
             'Apellido'   	=> 'Cabrera Pesantez',
             'telefono'		=> '7000114',
             'email'		=> 'lecabrera@gmail.com',
-            'estado'		=> 'A',
         ]);
 
         Persona::create([
@@ -82,7 +75,6 @@ class PersonaTableSeeder extends Seeder
             'Apellido'   	=> 'Calle Andrade',
             'telefono'		=> '7000115',
             'email'		=> 'ercalle@gmail.com',
-            'estado'		=> 'A',
         ]);
 
         Persona::create([
@@ -91,16 +83,14 @@ class PersonaTableSeeder extends Seeder
             'Apellido'      => 'CARPIO ESPINOZA',
             'telefono'      => '7000116',
             'email'     => 'gbcambisaca@gmail.com',
-            'estado'        => 'A',
         ]);
 
         Persona::create([
-            'cedula'        => '0100138726',
+            'cedula'        => '0102875796',
             'Nombre'        => 'RAUL',
             'Apellido'      => 'CEDILLO PALTA',
             'telefono'      => '7000116',
             'email'     => 'gbcambisaca@gmail.com',
-            'estado'        => 'A',
         ]);
 
         Persona::create([
@@ -109,7 +99,78 @@ class PersonaTableSeeder extends Seeder
             'Apellido'      => 'CORAIZACA NAULA',
             'telefono'      => '7000116',
             'email'     => 'gbcambisaca@gmail.com',
-            'estado'        => 'A',
+        ]);
+
+        Persona::create([
+            'cedula'        => '0104012059',
+            'Nombre'        => 'LUIS FEDERICO',
+            'Apellido'      => 'CULLQUICONDOR LAIME',
+            'telefono'      => '7000116',
+            'email'     => 'lcullqui@gmail.com',
+        ]);
+
+        Persona::create([
+            'cedula'        => '0301781316',
+            'Nombre'        => 'JORGE LEONARDO',
+            'Apellido'      => 'CULLQUICONDOR SUMBA',
+            'telefono'      => '7000116',
+            'email'     => 'jcullqui@gmail.com',
+        ]);
+
+        Persona::create([
+            'cedula'        => '0301332557',
+            'Nombre'        => 'SEGUNDO MANUEL',
+            'Apellido'      => 'CULLQUICONDOR SUMBA',
+            'telefono'      => '7000116',
+            'email'     => 'scullqui@gmail.com',
+        ]);
+
+        Persona::create([
+            'cedula'        => '0103553186',
+            'Nombre'        => 'GALO FABIAN',
+            'Apellido'      => 'CUZCO COYAGO',
+            'telefono'      => '7000116',
+            'email'     => 'gcuzcocoyago@gmail.com',
+        ]);
+
+        Persona::create([
+            'cedula'        => '0301282372',
+            'Nombre'        => 'DIEGO LEONARDO',
+            'Apellido'      => 'CUZCO CUZCO',
+            'telefono'      => '7000116',
+            'email'     => 'dcuzcoc@gmail.com',
+        ]);
+
+        Persona::create([
+            'cedula'        => '0301261863',
+            'Nombre'        => 'DORA ERMELINDA',
+            'Apellido'      => 'CUZCO CUZCO',
+            'telefono'      => '7000116',
+            'email'     => 'dcuzcoc@gmail.com',
+        ]);
+
+        Persona::create([
+            'cedula'        => '0301386330',
+            'Nombre'        => 'JORGE ROLANDO',
+            'Apellido'      => 'CUZCO CUZCO',
+            'telefono'      => '7000116',
+            'email'     => 'jcuzcoc@gmail.com',
+        ]);
+
+        Persona::create([
+            'cedula'        => '0301423208',
+            'Nombre'        => 'JOSÉ RAFAEL',
+            'Apellido'      => 'CUZCO CUZCO',
+            'telefono'      => '7000116',
+            'email'     => 'jcuzcoc@gmail.com',
+        ]);
+
+        Persona::create([
+            'cedula'        => '0301166815',
+            'Nombre'        => 'LUIS GUSTAVO',
+            'Apellido'      => 'CUZCO CUZCO',
+            'telefono'      => '7000116',
+            'email'     => 'lcuzcoc@gmail.com',
         ]);
 
     }

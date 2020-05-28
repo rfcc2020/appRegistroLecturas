@@ -8,7 +8,7 @@
                 <div class="panel-heading">lectura</div>
 
                 <div class="panel-body">                                        
-                    <p><strong>Fecha</strong>      {{ $lectura->Fecha }}</p>
+                    <p><strong>Fecha</strong>      {{ $lectura->fecha }}</p>
                     <p><strong>Nombre</strong>      {{ $lectura->nombre }}</p>
                     <p><strong>Apellido</strong>    {{ $lectura->apellido }}</p>
                     <p><strong>Codigo medidor</strong>  {{ $lectura->codigo }}</p>

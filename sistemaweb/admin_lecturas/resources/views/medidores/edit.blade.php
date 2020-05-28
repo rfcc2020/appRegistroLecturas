@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Medidores</div>
+                <div class="panel-heading">Medidores de consumo de agua</div>
 
                 <div class="panel-body">                    
                     {!! Form::model($medidor, ['route' => ['medidores.update', $medidor->id],

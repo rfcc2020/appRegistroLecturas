@@ -13,7 +13,6 @@
                     <p><strong>Apellido</strong>    {{ $persona->apellido }}</p>
                     <p><strong>Teléfono</strong>    {{ $persona->telefono }}</p>
                     <p><strong>Email</strong>      {{ $persona->email }}</p>
-                    <p><strong>Estado</strong>  {{ $persona->estado }}</p>
                 </div>
             </div>
         </div>

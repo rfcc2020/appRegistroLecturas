@@ -9,7 +9,7 @@ namespace AppLecturas.Vista
     //clase para manejar la vista login como una vista modal
     public class LoginModalPage:CarouselPage
     {
-        ContentPage Login;//variable local tipo ContenPage(página de contenido)
+        private readonly ContentPage Login;//variable local tipo ContenPage(página de contenido)
         public LoginModalPage(ILoginManager ObjIlm)//constructor
         {
             Login = new PagLogin(ObjIlm);//instanciación de un objeto de la clase PagLogin del espacio de nombres vista

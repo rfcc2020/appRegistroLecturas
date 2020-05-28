@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -11,7 +12,7 @@ using Xamarin.Forms;
 namespace AppLecturas.Controlador
 {
     //clase para realizar selección, inserción, modificación y eleiminación de registros de la tabla lectura de la base de datos
-    public class CtrlLectura:CtrlBase
+    public class CtrlLectura : CtrlBase
     {
         string Url;
         //método para crear la variable cliente que realizará la conexión al servidor usando el protocolo http
@@ -22,31 +23,75 @@ namespace AppLecturas.Controlador
             client.DefaultRequestHeaders.Add("Connection", "close");
             return client;
         }
-        
+
         //método que invoca al script php que consulta la lectura anterior filtrado por el código de medidor de la tabla lectura
         public async Task<List<ClsLectura>> ConsultarAnterior(int IdMedidor)
         {
-            return await App.Database.GetLecturaMedidorAsync(IdMedidor);
+            try
+            {
+                return await App.Database.GetLecturaMedidorAsync(IdMedidor);
+            }
+            catch
+            {
+                return Enumerable.Empty<ClsLectura>() as List<ClsLectura>;//devuelve una lista vacía
+            }
         }
-        
+        public async Task<bool> GetLecturaMedidorAsync(DateTime Fecha, int IdMedidor)
+        {
+            bool resp = false;
+            try
+            {
+                var ListLecturas = await App.Database.GetLecturaAsync(Fecha, IdMedidor);
+                foreach (ClsLectura item in ListLecturas)
+                {
+                    if (item.Fecha.Month == Fecha.Month && item.Fecha.Year == Fecha.Year)
+                    {
+                        resp = true;
+                        break;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return resp;
+        }
         public async Task<IEnumerable<ClsLectura>> Get()
         {
-            return await App.Database.GetLecturaAsync();
+            try
+            {
+                return await App.Database.GetLecturaAsync();
+            }
+            catch
+            {
+                return Enumerable.Empty<ClsLectura>();//devuelve una lista vacía
+            }
         }
         public async Task<IEnumerable<ClsLectura>> GetNoSincronizados()
         {
-            return await App.Database.GetLecturaAsync("0");
+            try
+            {
+                return await App.Database.GetLecturaAsync("0");
+            }
+            catch
+            {
+                return Enumerable.Empty<ClsLectura>();//devuelve una lista vacía
+            }
         }
-      
+
         public async Task<string> Sincronizar()
         {
             var ListLecturas = await GetNoSincronizados();
-            Url = "http://" + Servidor+ "/api_rest/srvlecturas.php";
+            int sinc=0, nsinc = 0;
+            Url = Servidor + "srvlecturas.php";
             HttpClient client = getCliente();
             foreach (ClsLectura item in ListLecturas)
             {
-                var formContent = new FormUrlEncodedContent(new[]
-            {
+                try
+                {
+                    var formContent = new FormUrlEncodedContent(new[]
+                {
                 new KeyValuePair<string, string>("Fecha", item.Fecha.Year + "/"+item.Fecha.Month+"/"+item.Fecha.Day),
                 new KeyValuePair<string, string>("Anterior", item.Anterior.ToString()),
                 new KeyValuePair<string, string>("Actual", item.Actual.ToString()),
@@ -54,28 +99,30 @@ namespace AppLecturas.Controlador
                 new KeyValuePair<string, string>("Basico", item.Basico.ToString()),
                 new KeyValuePair<string, string>("Exceso", item.Exceso.ToString()),
                 new KeyValuePair<string, string>("Observacion", item.Observacion.ToString()),
-                new KeyValuePair<string, string>("Imagen", ""),
+                new KeyValuePair<string, string>("Imagen", item.StrImagen),
                 new KeyValuePair<string, string>("Latitud", item.Latitud.ToString()),
                 new KeyValuePair<string, string>("Longitud", item.Longitud.ToString()),
                 new KeyValuePair<string, string>("Estado", "A"),
                 new KeyValuePair<string, string>("Medidor_id", item.Medidor_id.ToString()),
-                new KeyValuePair<string, string>("Created_at", item.Created_at.Year+"/"+item.Created_at.Month+"/"+item.Created_at.Day+" "+item.Created_at.ToShortTimeString()),
-                new KeyValuePair<string, string>("Updated_at", item.Updated_at.Year+"/"+item.Updated_at.Month+"/"+item.Updated_at.Day+" "+item.Updated_at.ToShortTimeString()),
+                new KeyValuePair<string, string>("User_id", item.User_id.ToString()),
+                new KeyValuePair<string, string>("Created_at", item.Created_at.Year+"/"+item.Created_at.Month+"/"+item.Created_at.Day),
+                new KeyValuePair<string, string>("Updated_at", item.Updated_at.Year+"/"+item.Updated_at.Month+"/"+item.Updated_at.Day),
             });
-
-                //var myHttpClient = new HttpClient();
-               
-                var response = await client.PostAsync(Url, formContent);
-                if(response.IsSuccessStatusCode)
-                {
-                    var json = await response.Content.ReadAsStringAsync();
-                    ClsLectura result = JsonConvert.DeserializeObject<ClsLectura>(json);
-                    await App.Database.UpdateLecturaAsync(item.Id, result.IdServer, "1");
+                    var response = await client.PostAsync(Url, formContent);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        ClsLectura result = JsonConvert.DeserializeObject<ClsLectura>(json);
+                        await App.Database.UpdateLecturaAsync(item.Id, result.IdServer, "1");
+                        sinc++;
+                    }
+                    else
+                        nsinc++;
                 }
-                    
-            }
-
-            return "0";//devuelve una lista vacía
+                catch { nsinc++; }
+                }
+                
+            return "Sincronizados: "+sinc+" No sincronizados: "+nsinc;//devuelve resultado lecturass sincronizadas y no sincronizadas
         }
 
         //método que invoca al script que elimina registros en la tabla lectura de la base de datos
@@ -101,7 +148,7 @@ namespace AppLecturas.Controlador
                 await App.Database.SaveLecturaAsync(ObjLectura);
                 return "ok";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex.Message;
             }

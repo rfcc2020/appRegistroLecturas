@@ -24,7 +24,7 @@ namespace AppLecturas.Vista
         ClsPersona ObjPersona;
         CtrlLectura manager;
         ClsMedidor ObjMedidor;
-
+        ClsUsuario ObjUsuario;
         //Manejo de camara
         public static readonly BindableProperty RutaFotoProperty = BindableProperty.Create(
                   "RutaFoto",
@@ -57,6 +57,8 @@ namespace AppLecturas.Vista
                 {
                     RutaFoto = Foto.Path;
                     Imagen.Source = RutaFoto;
+                    ObjLectura.Imagen = ConvertirImagen();
+                    ObjLectura.StrImagen = RutaFoto;
                 }
             }
             catch (Exception ex)
@@ -91,22 +93,61 @@ namespace AppLecturas.Vista
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            this.ObjCtrlPersona = new CtrlPersona();
-            var ListPersona = await ObjCtrlPersona.ConsultarId(this.ObjMedidor.Persona_id);
-            if (ListPersona.Count() > 0)
+            this.ObjUsuario = App.Current.Properties["ObjUsuario"] as ClsUsuario;//recuperar objeto guardado en propieades de la aplicación
+            ObjLectura.User_id = ObjUsuario.Id;
+            try
             {
-                this.ObjPersona = ListPersona.First();
-                LblNombres.Text = this.ObjPersona.Nombre + " " + this.ObjPersona.Apellido;
-                txtCedula.Text = this.ObjPersona.Cedula;
-            }
+                manager = new CtrlLectura();//instancia de clase control
+                if (opc)
+                {
+                    this.ObjCtrlPersona = new CtrlPersona();
+                    var ListPersona = await ObjCtrlPersona.ConsultarId(this.ObjMedidor.Persona_id);
+                    if (ListPersona.Count() > 0)
+                    {
+                        this.ObjPersona = ListPersona.First();
+                        LblNombres.Text = this.ObjPersona.Nombre + " " + this.ObjPersona.Apellido;
+                        txtCedula.Text = this.ObjPersona.Cedula;
+                    }
 
-            var LecturaAnterior = await manager.ConsultarAnterior(this.ObjMedidor.Id);
-            if(LecturaAnterior.Count == 1)
+                    var LecturaAnterior = await manager.ConsultarAnterior(this.ObjMedidor.Id);
+                    if (LecturaAnterior.Count == 1)
+                    {
+                        ClsLectura ObjLecAnterior = LecturaAnterior.First();
+                        TxtAnterior.Text = ObjLecAnterior.Actual.ToString();
+                        ObjLectura.Anterior = ObjLecAnterior.Actual;
+                    }
+                }
+                else
+                {
+                    this.ObjCtrlPersona = new CtrlPersona();
+                    CtrlMedidor ObjCtrlMedidor = new CtrlMedidor();
+                    var ListMedidor = await ObjCtrlMedidor.Consultar(this.ObjLectura.Medidor_id);
+                    if (ListMedidor.Count() == 1)
+                    {
+                        this.ObjMedidor = ListMedidor.First();
+                        var ListPersona = await ObjCtrlPersona.ConsultarId(this.ObjMedidor.Persona_id);
+                        if (ListPersona.Count() == 1)
+                        {
+                            this.ObjPersona = ListPersona.First();
+                            LblNombres.Text = this.ObjPersona.Nombre + " " + this.ObjPersona.Apellido;
+                            txtCedula.Text = this.ObjPersona.Cedula;
+                            txtConsumo.Text = this.ObjLectura.Consumo.ToString();
+                            TxtObservacion.Text = this.ObjLectura.Observacion;
+                            TxtAnterior.Text = ObjLectura.Anterior.ToString();
+                            ObjLectura.Anterior = ObjLectura.Actual;
+                            lblCodigo.Text = ObjMedidor.Codigo.ToString();
+                            lblNumero.Text = ObjMedidor.Numero.ToString();
+                            if (ObjLectura.Image != null)
+                                Imagen.Source = ObjLectura.Image;
+                        }
+                    }
+                }
+            }
+           catch(Exception ex)
             {
-                ClsLectura ObjLecAnterior = LecturaAnterior.First();
-                TxtAnterior.Text = ObjLecAnterior.Actual.ToString();
-                ObjLectura.Anterior = ObjLecAnterior.Actual;
-            }            
+                await DisplayAlert("Mensaje", ex.Message, "ok");
+            }
+                     
         }
 
         public PagIngresoLectura(ClsMedidor Obj, bool opc)//constructor
@@ -121,7 +162,14 @@ namespace AppLecturas.Vista
             this.ObjLectura.Updated_at = DateTime.Now;
             this.ObjLectura.Fecha = DateTime.Today;//asignación de fecha actual
             this.ObjLectura.Medidor_id = this.ObjMedidor.Id;
-            manager = new CtrlLectura();//instancia de clase control
+            BindingContext = this.ObjLectura;//indica que la vista se relacionará con los valores del objeto
+            this.ObjLectura.Localizar();
+        }
+        public PagIngresoLectura(ClsLectura Obj, bool opc)//constructor
+        {
+            InitializeComponent();
+            this.opc = opc;//asignación de variable local
+            this.ObjLectura = Obj;//asignación de objeto local
             BindingContext = this.ObjLectura;//indica que la vista se relacionará con los valores del objeto
             this.ObjLectura.Localizar();
         }
@@ -138,6 +186,10 @@ namespace AppLecturas.Vista
             try
             {
                 var res = "";
+                if (ObjLectura.Observacion == null)
+                    ObjLectura.Observacion = "s/n";
+                if (ObjLectura.Image == null)
+                    ObjLectura.StrImagen = "";
                 if (opc)
                 {
                     if (!string.IsNullOrWhiteSpace(LblNombres.Text) &&
@@ -148,12 +200,9 @@ namespace AppLecturas.Vista
                         if (txtCedula.Text.Length == 10 &&
                         ObjLectura.Actual > 0)//validación cedula con 10 caracteres
                         {
-                                ObjLectura.Imagen = ConvertirImagen();
                                 var ObjLecturaInsert = await manager.SaveAsync(ObjLectura);//llamada a método que inserta un nuevo registro
                                 if (ObjLecturaInsert != null)
                                 {
-                                    //Obj = ObjLecturaInsert.First();//asignación de objeto local con datos recién ingresados
-                                    //txtId.Text = Obj.Id.ToString();//mostrar id del registro creado
                                     res = ObjLecturaInsert;//respuesta positiva
                                 }
                                 else
@@ -168,22 +217,28 @@ namespace AppLecturas.Vista
                         await DisplayAlert("Mensaje", "Faltan Datos", "ok");
                 }else
                 {
-                    var ObjLecturaUpdate = await manager.UpdateAsync(ObjLectura);
-                    if (ObjLecturaUpdate != null)
+                    if (this.ObjLectura.Estado == "1")
                     {
-                        //Obj = ObjLecturaInsert.First();//asignación de objeto local con datos recién ingresados
-                        //txtId.Text = Obj.Id.ToString();//mostrar id del registro creado
-                        res = ObjLecturaUpdate;//respuesta positiva
+                        await DisplayAlert("Mensaje", "No se puede modificar porque ya ha sido sincronizado en la base de datos remota", "ok");
+                        res = null;
                     }
                     else
-                        res = null;//respuesta negativa si no se realizó correctamente 
+                    {
+                        var ObjLecturaUpdate = await manager.UpdateAsync(ObjLectura);
+                        if (ObjLecturaUpdate != null)
+                        {
+                            res = ObjLecturaUpdate;//respuesta positiva
+                        }
+                        else
+                            res = null;//respuesta negativa si no se realizó correctamente 
+                    }
                 }
                 if(res != null)
                     await DisplayAlert("Mensaje", "Datos guardados correctamente", "ok");
             }
-            catch (Exception e1)
+            catch (Exception ex)
             {
-                await DisplayAlert("Mensaje", e1.Message, "ok");
+                await DisplayAlert("Mensaje", ex.Message, "ok");
             }
         }
        
@@ -201,9 +256,22 @@ namespace AppLecturas.Vista
 
         private async void ButEliminar_ClickedAsync(object sender, EventArgs e)
         {
-            var resp = await manager.DeleteAsync(ObjLectura);
-            await DisplayAlert("Mensaje", resp, "ok");
+            if(!opc)
+                try
+                {
+                    if (this.ObjLectura.Estado == "0")
+                    {
+                        var resp = await manager.DeleteAsync(ObjLectura);
+                        await DisplayAlert("Mensaje", resp, "ok");
+                    }
+                    else
+                        await DisplayAlert("Mensaje", "No se puede eliminar porque ya ha sido sincronizado con el servidor remoto", "ok");
+                }
+            catch(Exception ex)
+                {
+                    await DisplayAlert("Mensaje", ex.Message, "ok");
+                }
         }
-        
+
     }
 }

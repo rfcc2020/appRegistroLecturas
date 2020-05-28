@@ -49,15 +49,17 @@ class MedidorController extends Controller
     {
         //
         $name=$request->imagen;
+        //validaciones
          $request->validate([
-            'codigo'=>'required',
-            'numero'=>'required',
-            'sector'=>'required'
+            'codigo'=>'required|unique:medidors|max:10',
+            'numero'=>'required|unique:medidors|max:3',
+            'sector'=>'required|max:20'
         ]);
         $medidorNuevo = new Medidor;
+
+        //manejo de imágenes
         if($request->hasFile('imagen'))
         {
-           //$path = $request->imagen->store('public');
             $file = $request->file('imagen');
             $name = time().$file->getClientOriginalName();
             $file->move(public_path().'/images',$name);
@@ -69,9 +71,6 @@ class MedidorController extends Controller
         $medidorNuevo->marca = $request->marca;
         $medidorNuevo->modelo = $request->modelo;
         $medidorNuevo->persona_id = $request->persona_id;
-        $medidorNuevo->estado = $request->estado;
-        $medidorNuevo->latitud = $request->latitud;
-        $medidorNuevo->longitud = $request->longitud;
         $medidorNuevo->save();
         return back()->with('info','Medidor agregado');
     }
@@ -113,11 +112,11 @@ class MedidorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $request->validate([
-            'codigo'=>'required',
-            'numero'=>'required',
-            'sector'=>'required'
+        //validaciones
+         $request->validate([
+            'codigo'=>'required|max:10',
+            'numero'=>'required|max:3',
+            'sector'=>'required|max:20'
         ]);
         $medidorUpdate = Medidor::findOrFail($id);
         if($request->hasFile('imagen'))
@@ -139,9 +138,6 @@ class MedidorController extends Controller
         $medidorUpdate->marca = $request->marca;
         $medidorUpdate->modelo = $request->modelo;
         $medidorUpdate->persona_id = $request->persona_id;
-        $medidorUpdate->estado = $request->estado;
-        $medidorUpdate->latitud = $request->latitud;
-        $medidorUpdate->longitud = $request->longitud;
         $medidorUpdate->save();
         return back()->with('info','Medidor actualizado');
     }
@@ -159,37 +155,4 @@ class MedidorController extends Controller
 
         return back()->with('info', 'Eliminado correctamente');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Medidor  $medidor
-     * @return \Illuminate\Http\Response
-     */
-    public function Asign($id)
-    {
-        //
-        $medidores = Medidor::paginate();
-// Medidor::where('estado', 1);
-        $persona_id = $id;
-        return view('medidores.asign', compact('medidores'),compact('persona_id'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Medidor  $medidor
-     * @return \Illuminate\Http\Response
-     */
-    public function asignar($id, $idp)
-    {
-        //
-        $medidorUpdate = Medidor::findOrFail($id);
-        $medidorUpdate->persona_id = $idp;
-        $medidorUpdate->estado = 0;
-        $medidorUpdate->save();
-        return back()->with('info','Medidor Asignado');
-    }
-
 }

@@ -27,7 +27,7 @@ class CreateLecturasTable extends Migration
             $table->float('longitud',10,6)->nullable();
             $table->string('estado');
             $table->Integer('medidor_id');
-            //$table->foreign('medidor_id')->references('id')->on('medidors')->onDelete('cascade');
+            $table->Integer('user_id');
             $table->timestamps();
         });
     }

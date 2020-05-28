@@ -46,7 +46,11 @@ namespace AppLecturas.Base
         }
         public Task<List<ClsMedidor>> GetMedidorAsync()
         {
-            return _database.Table<ClsMedidor>().ToListAsync();
+            try
+            {
+                return _database.Table<ClsMedidor>().ToListAsync();
+            }
+            catch(Exception ex) { return null; }
         }
         public Task<List<ClsMedidor>> GetMedidorAsync(int Id)
         {
@@ -100,6 +104,10 @@ namespace AppLecturas.Base
         public Task<List<ClsLectura>> GetLecturaAsync(string Estado)
         {
             return _database.Table<ClsLectura>().Where(c => c.Estado == Estado).ToListAsync();
+        }
+        public Task<List<ClsLectura>> GetLecturaAsync(DateTime Fecha, int Medidor_id)
+        {
+            return _database.Table<ClsLectura>().Where(c => c.Medidor_id==Medidor_id).ToListAsync();
         }
         public Task<int> UpdateLecturaAsync(int Id, int IdServ,string StrEstado)
         {

@@ -10,6 +10,6 @@ namespace AppLecturas.Modelo
     {
         public DateTime Created_at { get; set; }//propiedad
         public DateTime Updated_at { get; set; }//propiedad
-        public string Estado { get; set; }//propiedad
+        
     }
 }

@@ -19,7 +19,8 @@ class LecturaController extends Controller
         $lecturas = Lectura::
             Join('medidors', 'medidors.id', '=', 'lecturas.medidor_id')
             ->Join('personas', 'personas.id', '=', 'medidors.persona_id')
-            ->select('lecturas.*' ,'personas.nombre','personas.apellido','medidors.sector','medidors.codigo')
+            ->Join('users', 'users.id', '=', 'lecturas.user_id')
+            ->select('lecturas.*' ,'personas.nombre','personas.apellido','medidors.sector','medidors.codigo','users.name')
             ->paginate();
         //return $medidores;
         return view('lecturas.index', compact('lecturas'));
@@ -44,6 +45,9 @@ class LecturaController extends Controller
     public function store(Request $request)
     {
         //
+        //
+      
+        //return $request;
     }
 
     /**
@@ -55,7 +59,13 @@ class LecturaController extends Controller
     public function show($id)
     {
         //
-        $lectura = Lectura::find($id);
+        $lecturas = Lectura::
+            Join('medidors', 'medidors.id', '=', 'lecturas.medidor_id')
+            ->Join('personas', 'personas.id', '=', 'medidors.persona_id')
+            ->select('lecturas.*' ,'personas.nombre','personas.apellido','medidors.sector','medidors.codigo')
+            ->where('lecturas.id',"=",$id)
+            ->get();
+        $lectura=$lecturas[0];
         return view('lecturas.show', compact('lectura'));
     }
 

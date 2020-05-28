@@ -21,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
         Numero,
         Sector,
         Imagen,
-        Estado,
         Persona_id,
         Created_at,
         Updated_at
@@ -29,11 +28,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
         WHERE 
         id not in
         "."(".$filtro.")";
-        $sql = $dbConn->prepare($txtSql);
-        $sql->execute();
+         try
+    {
+      $sql = $dbConn->prepare($txtSql);
+      $sql->execute();
       header("HTTP/1.1 200 OK");
-      echo json_encode(  $sql->fetchAll());
+      echo json_encode(  $sql->fetchAll() );
       exit();
+    }
+    catch (PDOException $e)
+    {
+        header("HTTP/1.1 400 Bad Request");
+    }
     }
     else {
       //Mostrar lista de abonados

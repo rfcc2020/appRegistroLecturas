@@ -15,12 +15,11 @@ class CreatePersonasTable extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cedula');
+            $table->string('cedula')->unique();
             $table->string('nombre');
             $table->string('apellido');
             $table->string('telefono')->nullable();;
             $table->string('email')->nullable();;
-            $table->string('estado');
             $table->timestamps();
         });
     }

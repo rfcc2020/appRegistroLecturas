@@ -26,8 +26,6 @@ namespace AppLecturas.Vista
         {
             base.OnAppearing();
             bool IsValidSyncUsuarios = await SincronizarUsuariosAsync();
-            bool IsValidSyncPersonas = await SincronizarPersonasAsync();
-            bool IsValidSyncMedidores = await SincronizarMedidoresAsync();
         }
         public PagLogin()//constructor
         {
@@ -64,6 +62,8 @@ namespace AppLecturas.Vista
                                     }
                                     if (PassValido)
                                     {
+                                        bool IsValidSyncPersonas = await SincronizarPersonasAsync();
+                                        bool IsValidSyncMedidores = await SincronizarMedidoresAsync();
                                         ClsUsuario ObjUsuario = ConsUsr.First();
                                         await DisplayAlert("Mensaje", "Bienvenido", "ok");//mensaje de  bienvenida
                                                                                           //ObjUsuario.ObjPerfil = ConsPerfil.First();//asignar objeto encontrado a campo de objeto usuario
@@ -88,10 +88,9 @@ namespace AppLecturas.Vista
                         await DisplayAlert("Mensaje", "Debe ingresar el password", "ok");
                 else
                     await DisplayAlert("Mensaje", "Debe ingresar el email", "ok");
-            }//control de errores
+            }
             catch (Exception x) { await DisplayAlert("Mensaje", x.Message, "ok"); }
         }
-        //controlador botón cancelar evento clic, para borrar los datos ingresados en el formulario
         private void ButCancelar_Clicked(object sender, EventArgs e)
         {
             TxtEmail.Text = "";
@@ -106,7 +105,6 @@ namespace AppLecturas.Vista
                 return IsValid;
             }
             catch {
-                //await DisplayAlert("Mensaje", ex.Message, "ok");
                 return false; }
         }
         protected async Task<bool> SincronizarUsuariosAsync()
@@ -118,7 +116,6 @@ namespace AppLecturas.Vista
                 return IsValid;
             }
             catch {
-                //await DisplayAlert("Mensaje", ex.Message, "ok");
                 return false; }
         }
         protected async Task<bool> SincronizarMedidoresAsync()
@@ -131,7 +128,6 @@ namespace AppLecturas.Vista
             }
             catch
             {
-                    //await DisplayAlert("Mensaje", ex.Message, "ok"); 
                 return false; }
         }
     }

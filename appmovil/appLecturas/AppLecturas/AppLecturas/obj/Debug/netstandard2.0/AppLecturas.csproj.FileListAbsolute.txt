@@ -13,4 +13,3 @@ C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas\obj\Debug\netsta
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas\obj\Debug\netstandard2.0\AppLecturas.pdb
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas\obj\Debug\netstandard2.0\Vista\PagLecturas.xaml.g.cs
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas\obj\Debug\netstandard2.0\XamlC.stamp
-C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas\obj\Debug\netstandard2.0\AppLecturas.csprojAssemblyReference.cache

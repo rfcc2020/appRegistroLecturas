@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Medidor</div>
+                <div class="panel-heading">Medidor de consumo de agua</div>
 
                 <div class="panel-body">                                        
                     <p><strong>Código</strong>      {{ $medidor->codigo }}</p>
@@ -14,10 +14,7 @@
                     <p><strong>Modelo</strong>      {{ $medidor->modelo }}</p>
                     <p><strong>Sector</strong>      {{ $medidor->sector }}</p>
                     <img class="card-img-top" src="http://localhost/admin_lecturas/public/images/{{$medidor->imagen}}" alt="">
-                    <p><strong>Persona</strong>    {{ $medidor->persona_id }}</p>
-                    <p><strong>Latitud</strong>    {{ $medidor->latitud }}</p>
-                    <p><strong>Longitud</strong>    {{ $medidor->longitud }}</p>
-                    <p><strong>Estado</strong>  {{ $medidor->estado }}</p>
+                    <p><strong>Id de abonado</strong>    {{ $medidor->persona_id }}</p>
                 </div>
             </div>
         </div>

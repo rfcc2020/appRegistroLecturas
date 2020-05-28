@@ -16,16 +16,15 @@ class CreateMedidorsTable extends Migration
         Schema::create('medidors', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('codigo');
-            $table->integer('numero');
+            $table->string('codigo')->unique();
+            $table->integer('numero')->unique();
             $table->string('marca');
             $table->string('modelo');
             $table->string('sector');
             $table->string('imagen')->nullable();
             $table->float('latitud',10,6)->nullable();
             $table->float('longitud',10,6)->nullable();
-            $table->string('estado');
-            $table->Integer('persona_id');
+            $table->Integer('persona_id')->nullable();;
             $table->timestamps();
         });
     }

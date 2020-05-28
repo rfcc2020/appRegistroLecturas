@@ -34,11 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 // Crear una nueva lectura
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+    try
+    { 
     $input = $_POST;
     $sql = "INSERT INTO lecturas
-          (fecha,anterior,actual,consumo,basico,exceso,observacion,imagen,latitud,longitud,estado,medidor_id,created_at,updated_at)
+          (fecha,anterior,actual,consumo,basico,exceso,observacion,imagen,latitud,longitud,estado,medidor_id,user_id,created_at,updated_at)
           VALUES
-          (:Fecha,:Anterior, :Actual,:Consumo,:Basico,:Exceso,:Observacion,:Imagen,:Latitud,:Longitud,:Estado,:Medidor_id,:Created_at,:Updated_at)";
+          (:Fecha,:Anterior, :Actual,:Consumo,:Basico,:Exceso,:Observacion,:Imagen,:Latitud,:Longitud,:Estado,:Medidor_id,:User_id,:Created_at,:Updated_at)";
     $statement = $dbConn->prepare($sql);
     bindAllValues($statement, $input);
     $statement->execute();
@@ -50,6 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       echo json_encode($input);
       exit();
    }
+    }
+   catch (PDOException $e)
+    {
+        header("HTTP/1.1 400 Bad Request");
+    }
 }
 
 //Borrar
