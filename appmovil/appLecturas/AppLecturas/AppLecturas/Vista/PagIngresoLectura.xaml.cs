@@ -43,11 +43,11 @@ namespace AppLecturas.Vista
             }
         }
 
-        private MediaFile Foto;
+        private MediaFile Foto;//variable que almacena la foto
 
-        public Command m_seleccionarFotoComand;
+        public Command m_seleccionarFotoComand;//representa seleccion o ejecucion de aplicación cámara
 
-        public async void SeleccionarFotoAsync(object sender, EventArgs e)
+        public async void SeleccionarFotoAsync(object sender, EventArgs e)//cuando se requiere seleccionar una foto
         {
             int nErrores = 0;
             try
@@ -57,8 +57,8 @@ namespace AppLecturas.Vista
                 {
                     RutaFoto = Foto.Path;
                     Imagen.Source = RutaFoto;
-                    ObjLectura.Imagen = ConvertirImagen();
-                    ObjLectura.StrImagen = RutaFoto;
+                    ObjLectura.Imagen = ConvertirImagen();//asigno a foto a la propiedad del objeto lectura
+                    ObjLectura.StrImagen = RutaFoto;//asigno la ruta a la propiedad del objeto lectura
                 }
             }
             catch (Exception ex)
@@ -68,7 +68,7 @@ namespace AppLecturas.Vista
             }
         }
 
-        public Command m_tomarFotoComand;
+        public Command m_tomarFotoComand;//cuando se requiere tomar una foto
 
         public async void TomarFotoAsync(object sender, EventArgs e)
         {
@@ -80,6 +80,8 @@ namespace AppLecturas.Vista
                 {
                     RutaFoto = Foto.Path;
                     Imagen.Source = RutaFoto;
+                    ObjLectura.Imagen = ConvertirImagen();//asigno a foto a la propiedad del objeto lectura
+                    ObjLectura.StrImagen = RutaFoto;//asigno a foto a la propiedad del objeto lectura
                 }
             }
             catch (Exception ex)
@@ -90,15 +92,16 @@ namespace AppLecturas.Vista
             //return (nErrores == 0);
         }
 
-        protected override async void OnAppearing()
+        protected override async void OnAppearing()//se ejecuta cuando se muestra esta interfaz
         {
             base.OnAppearing();
             this.ObjUsuario = App.Current.Properties["ObjUsuario"] as ClsUsuario;//recuperar objeto guardado en propieades de la aplicación
             ObjLectura.User_id = ObjUsuario.Id;
+            ButEliminar.IsVisible = false;
             try
             {
                 manager = new CtrlLectura();//instancia de clase control
-                if (opc)
+                if (opc)//cuando se está creando una lectura nueva
                 {
                     this.ObjCtrlPersona = new CtrlPersona();
                     var ListPersona = await ObjCtrlPersona.ConsultarId(this.ObjMedidor.Persona_id);
@@ -119,6 +122,8 @@ namespace AppLecturas.Vista
                 }
                 else
                 {
+                    //cuando se está consultando una lectura
+                    ButGuardar.IsVisible = false;
                     this.ObjCtrlPersona = new CtrlPersona();
                     CtrlMedidor ObjCtrlMedidor = new CtrlMedidor();
                     var ListMedidor = await ObjCtrlMedidor.Consultar(this.ObjLectura.Medidor_id);
@@ -150,7 +155,7 @@ namespace AppLecturas.Vista
                      
         }
 
-        public PagIngresoLectura(ClsMedidor Obj, bool opc)//constructor
+        public PagIngresoLectura(ClsMedidor Obj, bool opc)//constructor para ingresar nuevo
         {
             InitializeComponent();
             this.opc = opc;//asignación de variable local
@@ -165,7 +170,7 @@ namespace AppLecturas.Vista
             BindingContext = this.ObjLectura;//indica que la vista se relacionará con los valores del objeto
             this.ObjLectura.Localizar();
         }
-        public PagIngresoLectura(ClsLectura Obj, bool opc)//constructor
+        public PagIngresoLectura(ClsLectura Obj, bool opc)//constructor para consultar
         {
             InitializeComponent();
             this.opc = opc;//asignación de variable local
@@ -174,7 +179,7 @@ namespace AppLecturas.Vista
             this.ObjLectura.Localizar();
         }
 
-        public string ConvertirImagen()
+        public string ConvertirImagen()//transforma la imagen a Texto en base 64
         {
             byte[] ImageData = File.ReadAllBytes(RutaFoto);
             string base64String = Convert.ToBase64String(ImageData);
@@ -234,7 +239,10 @@ namespace AppLecturas.Vista
                     }
                 }
                 if(res != null)
+                {
                     await DisplayAlert("Mensaje", "Datos guardados correctamente", "ok");
+                    ButGuardar.IsEnabled = false;
+                }
             }
             catch (Exception ex)
             {
@@ -253,7 +261,7 @@ namespace AppLecturas.Vista
                 txtConsumo.Text = ObjLectura.Consumo.ToString();//mostrar variable consumo en caja de texto
             }
         }
-
+        //manejador del botón eliminar
         private async void ButEliminar_ClickedAsync(object sender, EventArgs e)
         {
             if(!opc)

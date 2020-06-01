@@ -7,10 +7,11 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Threading;
 
 namespace AppLecturas.Controlador
 {
-    //clase para realizar selección, inserción, modificación y eliminación en la tabla usuario de la base de datos.
+    //clase para interactuar entre la interfaz de usuario y la tabla ClsUsuario de la base de datos.
     public class CtrlUsuario:CtrlBase
     {
         string Url;
@@ -22,59 +23,68 @@ namespace AppLecturas.Controlador
             client.DefaultRequestHeaders.Add("Connection", "close");
             return client;
         }
-        //método asíncrono que devuelve un objeto enumerable(lista) de tipo clsusuario del paquete modelo filtrado por id de perfil
+        //método asíncrono que devuelve un listado de Usuarios que aún no han sido sincronizados entre la base local y la remota
         private async Task<IEnumerable<ClsUsuario>> GetNuevos()
         {
             try
             {
-                List<ClsUsuario> ListUsuarios = await App.Database.GetUsuarioAsync();
-                string StrIds = "";
-                if (ListUsuarios.Count > 0)
+                List<ClsUsuario> ListUsuarios = await App.Database.GetUsuarioAsync();//consulta de los medidores almacenados
+                //en la base de datos local
+                string StrIds = "";//varible tipo cadena para guardar los Id existentes en local
+                if (ListUsuarios.Count > 0)//si el listado de medidores es mayor que cero
                 {
                     foreach (ClsUsuario item in ListUsuarios)
                     {
-                        StrIds = StrIds + item.Id + ",";
+                        StrIds = StrIds + item.Id + ",";//se arma una cadena de Ids separado por coma(,)
                     }
                     StrIds = StrIds.Substring(0, StrIds.Length - 1);
                 }
                 else
-                    StrIds = "0";
-                //llamada al script php para consultar los usuarios, devuelve un objeto tipo json de la tabla usuario    
+                    StrIds = "0";//si no hay datos asigno el valor 0 a la cadena 
+                //se define la url a la que apunta la petición, indicando el script srvusuarios.php que recibe como parametro 
+                //la cadena de ids ya registrados
                 Url = Servidor + "srvusuarios.php" +
                     "?StrIds=" + StrIds;
+                //creación de un nuevo objeto Httpclient para hacer la solicitud al servidor remoto
                 HttpClient client = getCliente();
+                //ejecuta la petición Get al servidor remoto, pasando la url como parámetro
                 var resp = await client.GetAsync(Url);
-                if (resp.IsSuccessStatusCode)//si el codigo devuelto es satisfactorio se devuelve un objeto enumerable
+                
+                if (resp.IsSuccessStatusCode)//si el codigo devuelto es satisfactorio 
                 {
-                    string content = await resp.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<IEnumerable<ClsUsuario>>(content);//retorna un objeto json desserializado
+                    string content = await resp.Content.ReadAsStringAsync();//se lee el contenido de la respuesta del servidor
+                    return JsonConvert.DeserializeObject<IEnumerable<ClsUsuario>>(content);//transforma el contenido de respuesta
+                    //de formato json a listado de objetos de la clase ClsUsuario
                 }
+                else
+                    return Enumerable.Empty<ClsUsuario>();//devuelve una lista vacía
             }
-            catch
+            catch(Exception ex)
             {
-                return Enumerable.Empty<ClsUsuario>();//devuelve una lista vacía
+                throw new Exception("Error al consultar informacion del origen remoto. Razon: "+ex.Message);//devuelve una lista vacía
             }
-            return Enumerable.Empty<ClsUsuario>();//devuelve una lista vacía
         }
-        public async Task<bool> SincronizarAsync()
+        public async Task<bool> SincronizarAsync()//método para sincronizar usuarios entre la base local y la remota
         {
             try
             {
-                var Consulta = await GetNuevos();
-                if (Consulta != null)
+                var Consulta = await GetNuevos();//consulta los usuarios nuevos
+                if (Consulta != null)//si la consulta tiene datos
                 {
-                    foreach (ClsUsuario item in Consulta)
+                    foreach (ClsUsuario item in Consulta)//recorrer la consulta
                     {
-                        await App.Database.SaveUsuarioAsync(item);
+                        await App.Database.SaveUsuarioAsync(item);//almacenar cada objeto en la base de datos local
                     }
                     return true;
                 }
             }
-            catch { return false; }
-            
+            catch(Exception ex) {
+                throw new Exception("Error al consultar informacion del origen remoto. Razon: " + ex.Message);//devuelve error 
+            }
+
             return false;
         }
-        //método asíncrono que devuelve un objeto enumerable(lista) de tipo clsusuario del paquete modelo filtrado por email y password (login)
+        //método asíncrono que devuelve un objeto enumerable(lista) de tipo clsusuario del paquete modelo filtrado por email
         public async Task<IEnumerable<ClsUsuario>> LoginUsr(string email)
         {
             try
@@ -82,9 +92,9 @@ namespace AppLecturas.Controlador
                 List<ClsUsuario> ObjUsr = await App.Database.LoginUsuarioAsync(email);
                 return ObjUsr;
             }
-            catch 
+            catch (Exception ex)
             {
-                return Enumerable.Empty<ClsUsuario>();//devuelve una lista vacía 
+                throw new Exception("Error al consultar informacion del origen remoto. Razon: " + ex.Message);//devuelve error
             }
         }   
     }

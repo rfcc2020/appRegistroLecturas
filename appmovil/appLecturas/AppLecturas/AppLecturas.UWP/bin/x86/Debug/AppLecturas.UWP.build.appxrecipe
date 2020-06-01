@@ -556,6 +556,12 @@
     <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\win2d.uwp\1.20.0\runtimes\win10-x86\native\Microsoft.Graphics.Canvas.dll">
       <PackagePath>Microsoft.Graphics.Canvas.dll</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\xam.plugin.connectivity\3.2.0\lib\UAP10\Plugin.Connectivity.Abstractions.dll">
+      <PackagePath>Plugin.Connectivity.Abstractions.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\xam.plugin.connectivity\3.2.0\lib\UAP10\Plugin.Connectivity.dll">
+      <PackagePath>Plugin.Connectivity.dll</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\xam.plugin.media\4.0.1.5\lib\uap10.0.10240\Plugin.Media.dll">
       <PackagePath>Plugin.Media.dll</PackagePath>
     </AppxPackagedFile>

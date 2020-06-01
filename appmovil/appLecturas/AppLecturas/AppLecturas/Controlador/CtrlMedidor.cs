@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace AppLecturas.Controlador
 {
-    //clase para realizar selección, inserción, modificación y eliminación en la tabla medidor de la base de datos.
+    //clase para interactuar entre la interfaz de usuario y la tabla ClsMedidor de la base de datos.
     public class CtrlMedidor:CtrlBase
     {
         string Url;
@@ -27,7 +27,7 @@ namespace AppLecturas.Controlador
         {
             try
             {
-                return await App.Database.GetMedidorAsync(Sector);
+                return await App.Database.GetMedidorAsync(Sector);//consulta los medidores de agua de un determinado sector
             }
             catch
             {
@@ -35,7 +35,7 @@ namespace AppLecturas.Controlador
             }
         }
         //método asíncrono que devuelve un objeto enumerable(lista) de tipo clsmedidor del paquete modelo
-        public async Task<IEnumerable<ClsMedidor>> Consultar(int Id)
+        public async Task<IEnumerable<ClsMedidor>> Consultar(int Id)//consulta un registro en la tabla clsmedidor por Id
         {
             try
             {
@@ -46,7 +46,7 @@ namespace AppLecturas.Controlador
                 return Enumerable.Empty<ClsMedidor>();//devuelve una lista vacía }
             }
         }
-        //método que invoca al script php que consulta un un medidor filtrado por el id de persona asignada.
+        //método consulta un un medidor filtrado por el id de persona asignada.
         public async Task<IEnumerable<ClsMedidor>> ConsultarIdPersona(int IdPersona)
         {
             try
@@ -58,33 +58,37 @@ namespace AppLecturas.Controlador
                 return Enumerable.Empty<ClsMedidor>();//devuelve una lista vacía }
             }
         }
-        //método asíncrono que devuelve un objeto enumerable(lista) de tipo clsusuario del paquete modelo filtrado por id de perfil
-        //método asíncrono que devuelve un objeto enumerable(lista) de tipo clsusuario del paquete modelo filtrado por id de perfil
+        //método asíncrono que devuelve un listado de Medidores que aún no han sido sincronizados entre la base local y la remota
         private async Task<IEnumerable<ClsMedidor>> GetNuevos()
         {
             try
             {
-                List<ClsMedidor> ListMedidores = await App.Database.GetMedidorAsync();
-                string StrIds = "";
-                if (ListMedidores.Count > 0)
+                List<ClsMedidor> ListMedidores = await App.Database.GetMedidorAsync();//consulta de los medidores almacenados
+                //en la base de datos local
+                string StrIds = "";//varible tipo cadena para guardar los Id existentes en local
+                if (ListMedidores.Count > 0)//si el listado de medidores es mayor que cero
                 {
                     foreach (ClsMedidor item in ListMedidores)
                     {
-                        StrIds = StrIds + item.Id + ",";
+                        StrIds = StrIds + item.Id + ",";//se arma una cadena de Ids separado por coma(,)
                     }
                     StrIds = StrIds.Substring(0, StrIds.Length - 1);
                 }
                 else
-                    StrIds = "0";
-                //llamada al script php para consultar los usuarios, devuelve un objeto tipo json de la tabla usuario    
+                    StrIds = "0";//si no hay datos asigno el valor 0 a la cadena 
+                //se define la url a la que apunta la petición, indicando el script srvmedidores.php que recibe como parametro 
+                //la cadena de ids ya registrados
                 Url = Servidor + "srvmedidores.php" +
                     "?StrIds=" + StrIds;
+                //creación de un nuevo objeto Httpclient para hacer la solicitud al servidor remoto
                 HttpClient client = getCliente();
+                //ejecuta la petición Get al servidor remoto, pasando la url como parámetro
                 var resp = await client.GetAsync(Url);
-                if (resp.IsSuccessStatusCode)//si el codigo devuelto es satisfactorio se devuelve un objeto enumerable
+                if (resp.IsSuccessStatusCode)//si el codigo devuelto es satisfactorio 
                 {
-                    string content = await resp.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<IEnumerable<ClsMedidor>>(content);//retorna un objeto json desserializado
+                    string content = await resp.Content.ReadAsStringAsync();//se lee el contenido de la respuesta del servidor
+                    return JsonConvert.DeserializeObject<IEnumerable<ClsMedidor>>(content);//transforma el contenido de respuesta
+                    //de formato json a listado de objetos de la clase ClsMedidor
                 }
             }
             catch
@@ -93,16 +97,16 @@ namespace AppLecturas.Controlador
             }
             return Enumerable.Empty<ClsMedidor>();//devuelve una lista vacía
         }
-        public async Task<bool> SincronizarAsync()
+        public async Task<bool> SincronizarAsync()//método para sincronizar medidores entre la base local y la remota
         {
             try
             {
-                var Consulta = await GetNuevos();
-                if (Consulta != null)
+                var Consulta = await GetNuevos();//consulta los medidores nuevos 
+                if (Consulta != null)//si la consulta tiene datos
                 {
-                    foreach (ClsMedidor item in Consulta)
+                    foreach (ClsMedidor item in Consulta)//recorrer la consulta
                     {
-                        await App.Database.SaveMedidorAsync(item);
+                        await App.Database.SaveMedidorAsync(item);//almacenar cada objeto en la base de datos local
                     }
                     return true;
                 }

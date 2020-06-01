@@ -11,11 +11,11 @@ using Xamarin.Forms;
 
 namespace AppLecturas.Controlador
 {
-    //clase para realizar selección, inserción, modificación y eleiminación de registros de la tabla lectura de la base de datos
-    public class CtrlLectura : CtrlBase
+    //clase para interactuar entre la interfaz de usuario y el modelo de base de datos local y remoto
+    public class CtrlLectura : CtrlBase//hereda de ctrlbase
     {
         string Url;
-        //método para crear la variable cliente que realizará la conexión al servidor usando el protocolo http
+        //método para crear la variable cliente que realizará la conexión al servidor remoto usando el protocolo http
         private HttpClient getCliente()
         {
             HttpClient client = new HttpClient();
@@ -24,40 +24,41 @@ namespace AppLecturas.Controlador
             return client;
         }
 
-        //método que invoca al script php que consulta la lectura anterior filtrado por el código de medidor de la tabla lectura
+        //método para obtener la lectura anterior de un medidor
         public async Task<List<ClsLectura>> ConsultarAnterior(int IdMedidor)
         {
             try
             {
-                return await App.Database.GetLecturaMedidorAsync(IdMedidor);
+                return await App.Database.GetLecturaMedidorAsync(IdMedidor);//invoca al método de la clase Database
             }
             catch
             {
                 return Enumerable.Empty<ClsLectura>() as List<ClsLectura>;//devuelve una lista vacía
             }
         }
+        //método para consultar si un medidor ya tiene un registro correspondiente al mes y año actual
         public async Task<bool> GetLecturaMedidorAsync(DateTime Fecha, int IdMedidor)
         {
             bool resp = false;
             try
             {
-                var ListLecturas = await App.Database.GetLecturaAsync(Fecha, IdMedidor);
-                foreach (ClsLectura item in ListLecturas)
+                var ListLecturas = await App.Database.GetLecturaAsync(IdMedidor);//consulta las lecturas que corresponde al id de medidor
+                foreach (ClsLectura item in ListLecturas)//recorrer el listado de lecturas
                 {
-                    if (item.Fecha.Month == Fecha.Month && item.Fecha.Year == Fecha.Year)
+                    if (item.Fecha.Month == Fecha.Month && item.Fecha.Year == Fecha.Year)//si la fecha del registro coincide con el año y mes actual devuelve true y termina el método
                     {
-                        resp = true;
+                        resp = true;//devuelve verdadero
                         break;
                     }
                 }
             }
             catch
             {
-                return false;
+                return false;//si hay error devuelve falso
             }
-            return resp;
+            return resp;//si no encuentra ningún registro devuelve falso
         }
-        public async Task<IEnumerable<ClsLectura>> Get()
+        public async Task<IEnumerable<ClsLectura>> Get()//consultar listado de lecturas
         {
             try
             {
@@ -68,7 +69,7 @@ namespace AppLecturas.Controlador
                 return Enumerable.Empty<ClsLectura>();//devuelve una lista vacía
             }
         }
-        public async Task<IEnumerable<ClsLectura>> GetNoSincronizados()
+        public async Task<IEnumerable<ClsLectura>> GetNoSincronizados()//consultar lecturas con estado 0
         {
             try
             {
@@ -80,17 +81,17 @@ namespace AppLecturas.Controlador
             }
         }
 
-        public async Task<string> Sincronizar()
+        public async Task<string> Sincronizar()//método para sincronizar con servidor remoto
         {
-            var ListLecturas = await GetNoSincronizados();
-            int sinc=0, nsinc = 0;
-            Url = Servidor + "srvlecturas.php";
-            HttpClient client = getCliente();
-            foreach (ClsLectura item in ListLecturas)
+            var ListLecturas = await GetNoSincronizados();//obtener lecturas con estado = 0
+            int sinc=0, nsinc = 0;//variables para mostrar resultado sinc=sincronizados, nsinc=no sincronizados
+            Url = Servidor + "srvlecturas.php";//armar la url con la dirección del sevidor y el script srvlecturas.php
+            HttpClient client = getCliente();//crear un nuevo objeto tipo cliente http
+            foreach (ClsLectura item in ListLecturas)//recorrer el listado de lecturas no sincronizadas
             {
                 try
                 {
-                    var formContent = new FormUrlEncodedContent(new[]
+                    var formContent = new FormUrlEncodedContent(new[]//armar un formulario con los datos del objeto
                 {
                 new KeyValuePair<string, string>("Fecha", item.Fecha.Year + "/"+item.Fecha.Month+"/"+item.Fecha.Day),
                 new KeyValuePair<string, string>("Anterior", item.Anterior.ToString()),
@@ -108,13 +109,13 @@ namespace AppLecturas.Controlador
                 new KeyValuePair<string, string>("Created_at", item.Created_at.Year+"/"+item.Created_at.Month+"/"+item.Created_at.Day),
                 new KeyValuePair<string, string>("Updated_at", item.Updated_at.Year+"/"+item.Updated_at.Month+"/"+item.Updated_at.Day),
             });
-                    var response = await client.PostAsync(Url, formContent);
-                    if (response.IsSuccessStatusCode)
+                    var response = await client.PostAsync(Url, formContent);//enviar la petición http al servidor remoto y recoger el resultado en la variable response
+                    if (response.IsSuccessStatusCode)//si la respuesta viene con código correcto 
                     {
-                        var json = await response.Content.ReadAsStringAsync();
-                        ClsLectura result = JsonConvert.DeserializeObject<ClsLectura>(json);
-                        await App.Database.UpdateLecturaAsync(item.Id, result.IdServer, "1");
-                        sinc++;
+                        var json = await response.Content.ReadAsStringAsync();//recibe la respuesta en formato json
+                        ClsLectura result = JsonConvert.DeserializeObject<ClsLectura>(json);//result objeto de la clase clslectura 
+                        await App.Database.UpdateLecturaAsync(item.Id, result.IdServer, "1");//actualizar el registro de la tabla clslectura
+                        sinc++;//incremento 
                     }
                     else
                         nsinc++;
@@ -125,7 +126,7 @@ namespace AppLecturas.Controlador
             return "Sincronizados: "+sinc+" No sincronizados: "+nsinc;//devuelve resultado lecturass sincronizadas y no sincronizadas
         }
 
-        //método que invoca al script que elimina registros en la tabla lectura de la base de datos
+        //método elimina registros en la tabla lectura de la base de datos
         public async Task<string> DeleteAsync(ClsLectura ObjLectura)
         {
             try
@@ -138,13 +139,13 @@ namespace AppLecturas.Controlador
                 return ex.Message;
             }
         }
-
-        public async Task<string> SaveAsync(ClsLectura ObjLectura)
+        //guardar una nueva lectura
+        public async Task<string> SaveAsync(ClsLectura ObjLectura)//recibe un objeto de la clase clslectura
         {
             try
             {
-                ObjLectura.Estado = "0";
-                ObjLectura.Calcular();
+                ObjLectura.Estado = "0";//defecto
+                ObjLectura.Calcular();//llamada a método calcular
                 await App.Database.SaveLecturaAsync(ObjLectura);
                 return "ok";
             }
@@ -153,6 +154,7 @@ namespace AppLecturas.Controlador
                 return ex.Message;
             }
         }
+        //actualizar una lectura
         public async Task<string> UpdateAsync(ClsLectura ObjLectura)
         {
             try

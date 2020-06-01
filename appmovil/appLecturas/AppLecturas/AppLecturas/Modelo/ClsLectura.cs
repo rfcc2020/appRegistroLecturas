@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SQLite;
+using SQLite;//base de datos sqlite
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +12,7 @@ namespace AppLecturas.Modelo
     //clase que modela la tabla lectura
     public class ClsLectura:ClsBase
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement]//Clave primaria autoincremental
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public float Anterior { get; set; }
@@ -21,7 +21,7 @@ namespace AppLecturas.Modelo
         public float Basico { get; set; }
         public float Exceso { get; set; }
         public string Observacion { get; set; }
-        public string Estado { get; set; }//propiedad
+        public string Estado { get; set; }//0 no sincronizado,1 sincronizado
         public double Latitud { get; set; }
         public double Longitud { get; set; }
         public int Medidor_id { get; set; }
@@ -39,7 +39,7 @@ namespace AppLecturas.Modelo
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public Xamarin.Forms.ImageSource Image
+        public Xamarin.Forms.ImageSource Image//manejar imágenes
         {
             get 
             {
@@ -53,7 +53,7 @@ namespace AppLecturas.Modelo
         public void Calcular()//método para calcular consumo, exceso y valores según la lectura anterior y la lectura actual
         {
             Consumo = Actual - Anterior;
-            Basico = ValorConsumo;
+            Basico = ValorConsumo;//4$
             if (Consumo > CantidadConsumo)
             {                
                 Exceso = (Consumo - CantidadConsumo) * VaLorExceso;
@@ -65,7 +65,7 @@ namespace AppLecturas.Modelo
             Total = Basico + Exceso;
         }
 
-        public async void Localizar()
+        public async void Localizar()//determina la latitud y longitud de la ubicación según el dispositivo
         {
             try
             {

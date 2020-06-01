@@ -9,7 +9,7 @@ namespace AppLecturas.Modelo
     public class ClsMedidor:ClsBase
     {
         [PrimaryKey]
-        public int Id { get; set; }//propiedad
+        public int Id { get; set; }
         public string Codigo { get; set; }
         public string Numero { get; set; }
         public string Marca { get; set; }

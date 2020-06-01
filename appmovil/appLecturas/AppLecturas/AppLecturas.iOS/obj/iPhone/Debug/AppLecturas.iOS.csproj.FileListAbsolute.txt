@@ -2,12 +2,18 @@ C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\D
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\AppLecturas.iOS.pdb
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\BCrypt.Net-Next.dll
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Newtonsoft.Json.dll
+C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Plugin.Permissions.dll
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\SQLite-net.dll
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\SQLitePCLRaw.batteries_green.dll
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\SQLitePCLRaw.batteries_v2.dll
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\SQLitePCLRaw.core.dll
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\SQLitePCLRaw.provider.sqlite3.dll
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\System.Net.Http.dll
+C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Plugin.Connectivity.Abstractions.dll
+C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Plugin.Connectivity.Abstractions.pdb
+C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Plugin.Connectivity.dll
+C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Plugin.Connectivity.pdb
+C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Plugin.Media.dll
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Xamarin.Essentials.dll
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Xamarin.Essentials.pdb
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Xamarin.Forms.Core.dll
@@ -64,5 +70,3 @@ C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\obj\iPhone\D
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\obj\iPhone\Debug\AppLecturas.iOS.csproj.CopyComplete
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\obj\iPhone\Debug\AppLecturas.iOS.exe
 C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\obj\iPhone\Debug\AppLecturas.iOS.pdb
-C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Plugin.Permissions.dll
-C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.iOS\bin\iPhone\Debug\Plugin.Media.dll

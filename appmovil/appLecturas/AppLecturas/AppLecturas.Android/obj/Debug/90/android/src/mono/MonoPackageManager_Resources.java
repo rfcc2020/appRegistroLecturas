@@ -7,6 +7,8 @@ public class MonoPackageManager_Resources {
 		"BCrypt.Net-Next.dll",
 		"FormsViewGroup.dll",
 		"Newtonsoft.Json.dll",
+		"Plugin.Connectivity.Abstractions.dll",
+		"Plugin.Connectivity.dll",
 		"Plugin.CurrentActivity.dll",
 		"Plugin.Media.dll",
 		"Plugin.Permissions.dll",
@@ -46,7 +48,6 @@ public class MonoPackageManager_Resources {
 		"Xamarin.Android.Support.SlidingPaneLayout.dll",
 		"Xamarin.Android.Support.SwipeRefreshLayout.dll",
 		"Xamarin.Android.Support.Transition.dll",
-		"Xamarin.Android.Support.v4.dll",
 		"Xamarin.Android.Support.v7.AppCompat.dll",
 		"Xamarin.Android.Support.v7.CardView.dll",
 		"Xamarin.Android.Support.v7.RecyclerView.dll",
@@ -61,5 +62,5 @@ public class MonoPackageManager_Resources {
 	};
 	public static String[] Dependencies = new String[]{
 	};
-	public static String ApiPackageName = "Mono.Android.Platform.ApiLevel_28";
+	public static String ApiPackageName = null;
 }

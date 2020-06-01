@@ -9,7 +9,7 @@
         <StackLayout Margin="20,35,20,20">
             <Button Text="Ver"
                 Clicked="Button_ClickedAsync" />
-            <Button Text="Sincronizar con servidor remoto"
+            <Button x:Name="ButSincr"  Text="Sincronizar con servidor remoto"
                 Clicked="Button_Clicked_SincronizarAsync" />
             <ListView x:Name="listView" ItemSelected="listView_ItemSelected">
                 <ListView.ItemTemplate>

@@ -16,6 +16,12 @@
                 <Label Text="Sector: " HorizontalTextAlignment="Center" FontSize="Micro"/>
                 <Label x:Name="TxtSector" TextColor="BlueViolet" FontSize="Micro"/>
             </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Conectado:" HorizontalTextAlignment="Center" FontSize="Micro"/>
+                <Label x:Name="TxtConectado" TextColor="Red" FontSize="Micro"/>
+                <Label Text="Obs." HorizontalTextAlignment="Center" FontSize="Micro"/>
+                <Label x:Name="TxtSincronizacion" TextColor="Red" FontSize="Micro"/>
+            </StackLayout>
             <Button Text="Consultar Medidores" x:Name="ButConsultaMedidores" Clicked="ButConsultaMedidores_ClickedAsync" FontSize="Micro"/>
             <ListView x:Name="listView" ItemSelected="listView_ItemSelected">
                 <ListView.ItemTemplate>

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -22,10 +23,15 @@ namespace AppLecturas.Vista
             InitializeComponent();
             this.Ilm = Ilm;//asignar variable local
         }
+        //metodo que se ejecuta cuando se muestra la interfaz
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             bool IsValidSyncUsuarios = await SincronizarUsuariosAsync();
+            if (!IsValidSyncUsuarios)
+                TxtMsg.Text = "No se ha podido recuperar la información del origen remoto";
+            else
+                TxtMsg.Text = "Información recuperada correctamente desde el origen remoto";
         }
         public PagLogin()//constructor
         {
@@ -49,21 +55,20 @@ namespace AppLecturas.Vista
                             if (TxtPassword.Text.Length >= 6) //(TxtPassword.TextColor == Color.Black)//validar password con formato correcto
                             {
                                var ConsUsr = await ObjCtrlUsuario.LoginUsr(TxtEmail.Text);//invoca al método login del controlador usuario
-                                if (ConsUsr.Count() == 1)//si existe un registro que coincide con el email y el password
+                                if (ConsUsr.Count() == 1)//si existe un registro que coincide con el email
                                 {
                                     bool PassValido = false;
-                                    foreach (ClsUsuario item in ConsUsr)
+                                    foreach (ClsUsuario item in ConsUsr)//recorrer la lista
                                     {
-                                        if (VerificarPassword(TxtPassword.Text, item.Password))
+                                        if (VerificarPassword(TxtPassword.Text, item.Password))//verificar password
                                         {
-                                            PassValido = true;
+                                            PassValido = true;//cuando se encuentra el password
                                             break;
                                         }
                                     }
-                                    if (PassValido)
+                                    if (PassValido)//si el password es valido se continua
                                     {
-                                        bool IsValidSyncPersonas = await SincronizarPersonasAsync();
-                                        bool IsValidSyncMedidores = await SincronizarMedidoresAsync();
+                                        await SincronizarPersonasAsync();
                                         ClsUsuario ObjUsuario = ConsUsr.First();
                                         await DisplayAlert("Mensaje", "Bienvenido", "ok");//mensaje de  bienvenida
                                                                                           //ObjUsuario.ObjPerfil = ConsPerfil.First();//asignar objeto encontrado a campo de objeto usuario
@@ -96,39 +101,37 @@ namespace AppLecturas.Vista
             TxtEmail.Text = "";
             TxtPassword.Text = "";
         }
+        //sincronizar los abonados
         protected async Task<bool> SincronizarPersonasAsync()
         {
             try
             {
                 CtrlPersona ObjCtrlPersona = new CtrlPersona();
-                bool IsValid = await ObjCtrlPersona.SincronizarAsync();
-                return IsValid;
+                if (ObjCtrlPersona.Esta_Conectado())
+                    return await ObjCtrlPersona.SincronizarAsync();
+                else
+                    return false;
             }
-            catch {
-                return false; }
+            catch
+            {
+                return false;
+            }
         }
+        //sincronizar los usuarios
         protected async Task<bool> SincronizarUsuariosAsync()
         {
             try
             {
                 CtrlUsuario ObjCtrlUsuario = new CtrlUsuario();
-                bool IsValid = await ObjCtrlUsuario.SincronizarAsync();
-                return IsValid;
-            }
-            catch {
-                return false; }
-        }
-        protected async Task<bool> SincronizarMedidoresAsync()
-        {
-            try
-            {
-                CtrlMedidor ObjCtrlMedidor = new CtrlMedidor();
-                bool IsValid = await ObjCtrlMedidor.SincronizarAsync();
-                return IsValid;
+                if (ObjCtrlUsuario.Esta_Conectado())
+                    return await ObjCtrlUsuario.SincronizarAsync();
+                else return false;
             }
             catch
             {
-                return false; }
+                return false;
+            }
         }
+        
     }
 }

@@ -7,112 +7,121 @@ using System.Text;
 using System.Threading.Tasks;
 namespace AppLecturas.Base
 {
-    public class Database
+    public class Database//Clase para crear y adminsitrar base de datos local(dispositivo)
     {
-        readonly SQLiteAsyncConnection _database;
+        readonly SQLiteAsyncConnection _database;//variable para manejar la conección a la base de datos local
 
-        public Database(string dbPath)
+        public Database(string dbPath)//constructor que recibe un parametro de tipo string(la dirección física donde se creará el archivo de base de datos local)
         {
-            _database = new SQLiteAsyncConnection(dbPath);
-            _database.CreateTableAsync<ClsUsuario>();
-            _database.CreateTableAsync<ClsPersona>();
-            _database.CreateTableAsync<ClsMedidor>();
-            _database.CreateTableAsync<ClsLectura>().Wait();
+            _database = new SQLiteAsyncConnection(dbPath);//crear un nuevo objeto tipo conección enviando como parametro la dirección física(path)
+            _database.CreateTableAsync<ClsUsuario>().Wait();//crear una tabla en la base de datos local según la clase ClsUsuario del paquete Modelo
+            _database.CreateTableAsync<ClsPersona>().Wait();//crear una tabla en la base de datos local según la clase ClsPersona(Abonado) del paquete Modelo
+            _database.CreateTableAsync<ClsMedidor>().Wait();//crear una tabla en la base de datos local según la clase ClsMedidor del paquete Modelo
+            _database.CreateTableAsync<ClsLectura>().Wait();//crear una tabla en la base de datos local según la clase ClsLectura del paquete Modelo
         }
 
-        public Task<int> SavePersonaAsync(ClsPersona person)
+        public Task<int> SavePersonaAsync(ClsPersona person)//método asíncrono que guarda un nuevo registro en la tabla ClsPersona, recibe como parametro un objeto de la clase ClsPersona
         {
-            return _database.InsertAsync(person);
+            return _database.InsertAsync(person);//invocación al método Insert en la tabla ClsPersona enviando el objeto de la clase ClsPersona, devuelve cero si la operación fracasó.
         }
-        public Task<int> SaveUsuarioAsync(ClsUsuario user)
+        public Task<int> SaveUsuarioAsync(ClsUsuario user)//método asíncrono que guarda un nuevo registro en la tabla ClsUsuario, recibe como parametro un objeto de la clase ClsUsuario
         {
-            return _database.InsertAsync(user);
+            return _database.InsertAsync(user);//invocación al método Insert en la tabla ClsUsuario enviando el objeto de la clase ClsUsuario, devuelve cero si la operación fracasó.
         }
-        public Task<int> SaveMedidorAsync(ClsMedidor medidor)
+        public Task<int> SaveMedidorAsync(ClsMedidor medidor)//método asíncrono que guarda un nuevo registro en la tabla ClsMedidor, recibe como parametro un objeto de la clase ClsMedidor
         {
-            return _database.InsertAsync(medidor);
+            return _database.InsertAsync(medidor);//invocación al método Insert en la tabla ClsMedidor enviando el objeto de la clase ClsMedidor, devuelve cero si la operación fracasó.
         }
-        public Task<List<ClsPersona>> GetPersonaAsync()
+        public Task<List<ClsPersona>> GetPersonaAsync()//método asíncrono que devuelve un listado con todos los registros de la tabla ClsPersona(Abonado) de la base de datos local
         {
-            return _database.Table<ClsPersona>().ToListAsync();
+            return _database.Table<ClsPersona>().ToListAsync();//invocación a método ToListAsync que convierte los registros de la tabla en un objeto lista.
         }
-        public Task<List<ClsPersona>> GetPersonaAsync(int Id)
+        public Task<List<ClsPersona>> GetPersonaAsync(int Id)//método asíncrono que devuelve un listado con los registros de la tabla ClsPersona(Abonado) de la base de datos local, 
+                                                             //recibe un parametro tipo entero
         {
-            return _database.Table<ClsPersona>().Where(c => c.Id == Id).ToListAsync();
+            return _database.Table<ClsPersona>().Where(c => c.Id == Id).ToListAsync();//invoca al método ToListAsync filtrando los registros por Id con el comando Where 
         }
-        public Task<List<ClsPersona>> GetPersonaAsync(string Ci)
+        public Task<List<ClsPersona>> GetPersonaAsync(string Ci)//método asíncrono que devuelve un listado con los registros de la tabla ClsPersona(Abonado) de la base de datos local, 
+                                                                //recibe un parametro tipo string
         {
-            return _database.Table<ClsPersona>().Where(c => c.Cedula == Ci).ToListAsync();
+            return _database.Table<ClsPersona>().Where(c => c.Cedula == Ci).ToListAsync();//invoca al método ToListAsync filtrando los registros por número de Cédula con el comando Where
         }
-        public Task<List<ClsMedidor>> GetMedidorAsync()
+        public Task<List<ClsMedidor>> GetMedidorAsync()//método asíncrono que devuelve un listado con todos los registros de la tabla ClsMedidor de la base de datos local
         {
-            try
-            {
-                return _database.Table<ClsMedidor>().ToListAsync();
-            }
-            catch(Exception ex) { return null; }
+            return _database.Table<ClsMedidor>().ToListAsync();//invocación a método ToListAsync que convierte los registros de la tabla en un objeto lista.
         }
-        public Task<List<ClsMedidor>> GetMedidorAsync(int Id)
+        public Task<List<ClsMedidor>> GetMedidorAsync(int Id)//método asíncrono que devuelve un listado con los registros de la tabla ClsMedidor de la base de datos local, 
+                                                             //recibe un parametro tipo entero
         {
-            return _database.Table<ClsMedidor>().Where(c => c.Id == Id).ToListAsync();
+            return _database.Table<ClsMedidor>().Where(c => c.Id == Id).ToListAsync();//invoca al método ToListAsync filtrando los registros por Id con el comando Where 
         }
-        public Task<List<ClsMedidor>> GetMedidorAsync(string  Sector)
+        public Task<List<ClsMedidor>> GetMedidorAsync(string  Sector)//método asíncrono que devuelve un listado con los registros de la tabla ClsMedidor de la base de datos local, 
+                                                                     //recibe un parametro tipo string
         {
-            return _database.Table<ClsMedidor>().Where(c => c.Sector == Sector).ToListAsync();
+            return _database.Table<ClsMedidor>().Where(c => c.Sector == Sector).ToListAsync();//invoca al método ToListAsync filtrando los registros por Sector con el comando Where
         }
-        public Task<List<ClsMedidor>> GetMedidorPersonaAsync(int IdPersona)
+        public Task<List<ClsMedidor>> GetMedidorPersonaAsync(int IdPersona)//método asíncrono que devuelve un listado con los registros de la tabla ClsMedidor de la base de datos local, 
+                                                                           //recibe un parametro tipo entero
         {
-            return _database.Table<ClsMedidor>().Where(c => c.Persona_id == IdPersona).ToListAsync();
+            return _database.Table<ClsMedidor>().Where(c => c.Persona_id == IdPersona).ToListAsync();//invoca al método ToListAsync filtrando los registros por Id de Persona con el comando Where
         }
-        public Task<List<ClsUsuario>> GetUsuarioAsync()
+        public Task<List<ClsUsuario>> GetUsuarioAsync()//método asíncrono que devuelve un listado con todos los registros de la tabla ClsUsuario de la base de datos local
         {
-            return _database.Table<ClsUsuario>().ToListAsync();
+            return _database.Table<ClsUsuario>().ToListAsync();//invocación a método ToListAsync que convierte los registros de la tabla en un objeto lista.
         }
-        public Task<List<ClsUsuario>> GetUsuarioAsync(int Id)
+        public Task<List<ClsUsuario>> GetUsuarioAsync(int Id)//método asíncrono que devuelve un listado con los registros de la tabla ClsUsuario de la base de datos local, 
+                                                             //recibe un parametro tipo entero
         {
-            return _database.Table<ClsUsuario>().Where(c => c.Id == Id).ToListAsync();
+            return _database.Table<ClsUsuario>().Where(c => c.Id == Id).ToListAsync();//invoca al método ToListAsync filtrando los registros por Id con el comando Where
         }
-        public Task<List<ClsUsuario>> LoginUsuarioAsync(string email)
+        public Task<List<ClsUsuario>> LoginUsuarioAsync(string email)//método asíncrono que devuelve un listado con los registros de la tabla ClsUsuario de la base de datos local, 
+                                                                     //recibe un parametro tipo string
         {
-            return _database.Table<ClsUsuario>().Where(c => c.Email == email).ToListAsync();
+            return _database.Table<ClsUsuario>().Where(c => c.Email == email).ToListAsync();//invoca al método ToListAsync filtrando los registros por email con el comando Where
         }
         
-        public Task<int> SaveLecturaAsync(ClsLectura lectura)
+        public Task<int> SaveLecturaAsync(ClsLectura lectura)//método asíncrono que guarda un nuevo registro en la tabla ClsLectura, recibe como parametro un objeto de la clase ClsLectura
         {
-            return _database.InsertAsync(lectura);
+            return _database.InsertAsync(lectura);//invocación al método Insert en la tabla ClsLectura enviando el objeto de la clase ClsLectura, devuelve cero si la operación fracasó.
         }
-        public Task<List<ClsLectura>> GetLecturaAsync()
+        public Task<List<ClsLectura>> GetLecturaAsync()//método asíncrono que devuelve un listado con los registros de la tabla ClsLectura de la base de datos local
         {
-            return _database.Table<ClsLectura>().ToListAsync();
+            return _database.Table<ClsLectura>().ToListAsync();//invocación a método ToListAsync que convierte los registros de la tabla en un objeto lista.
         }
-        public Task<List<ClsLectura>> GetLecturaAsync(int Id)
+        public Task<List<ClsLectura>> GetLecturaAsync(int Id)//método asíncrono que devuelve un listado con los registros de la tabla ClsLectura de la base de datos local, 
+                                                             //recibe un parametro tipo int
         {
-            return _database.Table<ClsLectura>().Where(c => c.Id == Id).ToListAsync();
+            return _database.Table<ClsLectura>().Where(c => c.Id == Id).ToListAsync();//invoca al método ToListAsync filtrando los registros por Id con el comando Where
         }
-        public Task<List<ClsLectura>> GetLecturaMedidorAsync(int IdMedidor)
+        public Task<List<ClsLectura>> GetLecturaMedidorAsync(int IdMedidor)//método asíncrono que devuelve un listado con los registros de la tabla ClsLectura de la base de datos local, 
+                                                             //recibe un parametro tipo int
         {
-            return _database.Table<ClsLectura>().Where(c => c.Medidor_id == IdMedidor).ToListAsync();
+            return _database.Table<ClsLectura>().Where(c => c.Medidor_id == IdMedidor).ToListAsync();//invoca al método ToListAsync filtrando los registros por Id de Medidor con el comando Where
         }
-        public Task<int> UpdateLecturaAsync(ClsLectura lectura)
+        public Task<int> UpdateLecturaAsync(ClsLectura lectura)//método asíncrono para actualizar un registro ne la tabla ClsLectura de la base de datos local,
+            //recibe como parámetro un objeto de la clase ClsLectura
         {
-            return _database.UpdateAsync(lectura);
+            return _database.UpdateAsync(lectura);//invoca al método asíncrono UpdateAsync que actualiza el registro, respondiendo con 0 si fracazó
         }
-        public Task<int> DeleteLecturaAsync(ClsLectura lectura)
+        public Task<int> DeleteLecturaAsync(ClsLectura lectura)//método asíncrono para eliminar un registro ne la tabla ClsLectura de la base de datos local,
+                                                               //recibe como parámetro un objeto de la clase ClsLectura
         {
-            return _database.DeleteAsync(lectura);
+            return _database.DeleteAsync(lectura);//invoca al método asíncrono DeleteAsync que actualiza el registro, respondiendo con 0 si fracazó
         }
-        public Task<List<ClsLectura>> GetLecturaAsync(string Estado)
+        public Task<List<ClsLectura>> GetLecturaAsync(string Estado)//método asíncrono que devuelve un listado con los registros de la tabla ClsLectura de la base de datos local, 
+                                                                    //recibe un parametro tipo string
         {
-            return _database.Table<ClsLectura>().Where(c => c.Estado == Estado).ToListAsync();
-        }
-        public Task<List<ClsLectura>> GetLecturaAsync(DateTime Fecha, int Medidor_id)
+            return _database.Table<ClsLectura>().Where(c => c.Estado == Estado).ToListAsync();//invoca al método ToListAsync filtrando los registros por Estado con el comando Where
+        }  
+        public Task<int> UpdateLecturaAsync(int Id, int IdServ,string StrEstado)//Método asíncrono para actualizar estado de un registro en la tabla ClsLectura
+            //luego de sincronizar con el servidor remoto
+            //recibe tres parametros 
+            //id representa el id del resgistro de la tabla ClsLectura
+            //IdServ es el id del registro en la tabla del serrvidor remoto
+            //strestado es el nuevo estado del registro (1 sincronizado,0 no sincronizado) 
         {
-            return _database.Table<ClsLectura>().Where(c => c.Medidor_id==Medidor_id).ToListAsync();
-        }
-        public Task<int> UpdateLecturaAsync(int Id, int IdServ,string StrEstado)
-        {
-            var stocksStartingWithA = _database.ExecuteScalarAsync<int>("Update ClsLectura set Estado=?,IdServer=? WHERE Id = ?",StrEstado,IdServ,Id);
-            return stocksStartingWithA;
+            return _database.ExecuteScalarAsync<int>("Update ClsLectura set Estado=?,IdServer=? WHERE Id = ?",StrEstado,IdServ,Id);//invoca al método ExecuteScalarAsync,
+            //para actualizar el estado (de 0 a 1) el idServer(id que registra el servidor) en el registro que coincida con el Id recibido(Id de lectura)
         }
     }
 }

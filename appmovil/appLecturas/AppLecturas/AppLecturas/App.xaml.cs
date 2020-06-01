@@ -13,19 +13,18 @@ namespace AppLecturas
     {
         static ILoginManager ObjLoginManager;//objeto de la interfaz Iloginmanager
         public new static App Current;//variable local
-        public static int Valor;//variable pública
 
         static Base.Database database;
 
-        public static Base.Database Database
+        public static Base.Database Database//crea la base de datos local
         {
             get
             {
-                if (database == null)
+                if (database == null)//en caso de aún no existir crea la base de datos 
                 {
-                    database = new Base.Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "applecturas19052020_1.db3"));
+                    database = new Base.Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "baselocal.db3"));//creación de la base de datos local
                 }
-                return database;
+                return database;//retorna la base de datos existente o la creada
             }
         }
 
@@ -59,7 +58,7 @@ namespace AppLecturas
         {
             MainPage = new NavigationPage(new PagMenu());
         }
-        //método que desautentica a un usaurio y luego muestra la interfaz login
+        //método que desautentica a un usurio y luego muestra la interfaz login
         public void Logout()
         {
             Properties["IsLoggedIn"] = false;

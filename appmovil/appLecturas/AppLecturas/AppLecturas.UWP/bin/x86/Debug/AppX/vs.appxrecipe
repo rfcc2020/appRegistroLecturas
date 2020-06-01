@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-05-28T11:56:04.173</Modified>
+      <Modified>2020-06-01T10:51:15.627</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\AppLecturas.UWP.exe">
       <PackagePath>entrypoint\AppLecturas.UWP.exe</PackagePath>
-      <Modified>2020-05-28T11:55:56.361</Modified>
+      <Modified>2020-06-01T10:51:11.400</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\bcrypt.net-next\3.3.3\lib\netstandard2.0\BCrypt.Net-Next.dll">
       <PackagePath>BCrypt.Net-Next.dll</PackagePath>
@@ -742,6 +742,14 @@
       <PackagePath>Microsoft.Graphics.Canvas.dll</PackagePath>
       <Modified>2016-11-30T07:58:38.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\xam.plugin.connectivity\3.2.0\lib\UAP10\Plugin.Connectivity.Abstractions.dll">
+      <PackagePath>Plugin.Connectivity.Abstractions.dll</PackagePath>
+      <Modified>2018-07-02T19:40:50.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\xam.plugin.connectivity\3.2.0\lib\UAP10\Plugin.Connectivity.dll">
+      <PackagePath>Plugin.Connectivity.dll</PackagePath>
+      <Modified>2018-07-02T19:40:58.000</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\xam.plugin.media\4.0.1.5\lib\uap10.0.10240\Plugin.Media.dll">
       <PackagePath>Plugin.Media.dll</PackagePath>
       <Modified>2018-07-24T01:55:22.000</Modified>
@@ -768,7 +776,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas\bin\Debug\netstandard2.0\AppLecturas.dll">
       <PackagePath>AppLecturas.dll</PackagePath>
-      <Modified>2020-05-28T12:20:11.769</Modified>
+      <Modified>2020-06-01T10:51:02.711</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
@@ -919,11 +927,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-05-28T11:55:56.092</Modified>
+      <Modified>2020-06-01T10:51:11.106</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-05-28T11:55:56.095</Modified>
+      <Modified>2020-06-01T10:51:11.107</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -935,11 +943,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-05-28T11:55:58.420</Modified>
+      <Modified>2020-06-01T10:51:13.202</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\Core\AppLecturas.UWP.exe">
       <PackagePath>AppLecturas.UWP.exe</PackagePath>
-      <Modified>2020-05-28T11:56:04.141</Modified>
+      <Modified>2020-06-01T10:51:15.609</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

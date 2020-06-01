@@ -24,6 +24,9 @@
                 <Button Text="Entrar"  x:Name="ButEntrar" Clicked="ButEntrar_Clicked"></Button>
                 <Button Text="Cancelar" x:Name="ButCancelar" Clicked="ButCancelar_Clicked"></Button>
             </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label x:Name="TxtMsg" Text="Estado: " HorizontalOptions="Center"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
