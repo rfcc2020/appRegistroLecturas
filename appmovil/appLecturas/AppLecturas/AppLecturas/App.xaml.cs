@@ -22,7 +22,7 @@ namespace AppLecturas
             {
                 if (database == null)//en caso de aún no existir crea la base de datos 
                 {
-                    database = new Base.Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "baselocal.db3"));//creación de la base de datos local
+                    database = new Base.Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "baselocal12062020820.db3"));//creación de la base de datos local
                 }
                 return database;//retorna la base de datos existente o la creada
             }

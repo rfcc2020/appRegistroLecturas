@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-06-01T10:51:15.627</Modified>
+      <Modified>2020-06-11T15:46:32.388</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\AppLecturas.UWP.exe">
       <PackagePath>entrypoint\AppLecturas.UWP.exe</PackagePath>
-      <Modified>2020-06-01T10:51:11.400</Modified>
+      <Modified>2020-06-11T15:46:30.991</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\bcrypt.net-next\3.3.3\lib\netstandard2.0\BCrypt.Net-Next.dll">
       <PackagePath>BCrypt.Net-Next.dll</PackagePath>
@@ -776,7 +776,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas\bin\Debug\netstandard2.0\AppLecturas.dll">
       <PackagePath>AppLecturas.dll</PackagePath>
-      <Modified>2020-06-01T10:51:02.711</Modified>
+      <Modified>2020-06-11T15:49:31.186</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\.nuget\packages\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
@@ -927,11 +927,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-06-01T10:51:11.106</Modified>
+      <Modified>2020-06-11T15:46:30.767</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-06-01T10:51:11.107</Modified>
+      <Modified>2020-06-11T15:46:30.769</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -943,11 +943,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-06-01T10:51:13.202</Modified>
+      <Modified>2020-06-01T12:06:07.532</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Robin\source\repos\AppLecturas\AppLecturas\AppLecturas.UWP\bin\x86\Debug\Core\AppLecturas.UWP.exe">
       <PackagePath>AppLecturas.UWP.exe</PackagePath>
-      <Modified>2020-06-01T10:51:15.609</Modified>
+      <Modified>2020-06-11T15:46:32.370</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

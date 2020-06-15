@@ -15,7 +15,6 @@ namespace AppLecturas.Modelo
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Telefono { get; set; }
-        [Unique]
         public string Email { get; set; }
     }
 }

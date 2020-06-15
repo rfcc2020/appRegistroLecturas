@@ -58,7 +58,7 @@ namespace AppLecturas.Base
         public Task<List<ClsMedidor>> GetMedidorAsync(string  Sector)//método asíncrono que devuelve un listado con los registros de la tabla ClsMedidor de la base de datos local, 
                                                                      //recibe un parametro tipo string
         {
-            return _database.Table<ClsMedidor>().Where(c => c.Sector == Sector).ToListAsync();//invoca al método ToListAsync filtrando los registros por Sector con el comando Where
+            return _database.Table<ClsMedidor>().Where(c => Sector.Contains(c.Sector)).ToListAsync();//invoca al método ToListAsync filtrando los registros por Sector con el comando Where
         }
         public Task<List<ClsMedidor>> GetMedidorPersonaAsync(int IdPersona)//método asíncrono que devuelve un listado con los registros de la tabla ClsMedidor de la base de datos local, 
                                                                            //recibe un parametro tipo entero
@@ -107,6 +107,11 @@ namespace AppLecturas.Base
                                                                //recibe como parámetro un objeto de la clase ClsLectura
         {
             return _database.DeleteAsync(lectura);//invoca al método asíncrono DeleteAsync que actualiza el registro, respondiendo con 0 si fracazó
+        }
+        public Task<int> DeleteUsuariosAsync()//método asíncrono para eliminar un registro ne la tabla ClsLectura de la base de datos local,
+                                                               //recibe como parámetro un objeto de la clase ClsLectura
+        {
+            return _database.DeleteAllAsync<ClsUsuario>();//invoca al método asíncrono DeleteAsync que actualiza el registro, respondiendo con 0 si fracazó
         }
         public Task<List<ClsLectura>> GetLecturaAsync(string Estado)//método asíncrono que devuelve un listado con los registros de la tabla ClsLectura de la base de datos local, 
                                                                     //recibe un parametro tipo string

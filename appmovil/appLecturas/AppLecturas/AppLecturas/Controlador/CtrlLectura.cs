@@ -42,7 +42,7 @@ namespace AppLecturas.Controlador
             bool resp = false;
             try
             {
-                var ListLecturas = await App.Database.GetLecturaAsync(IdMedidor);//consulta las lecturas que corresponde al id de medidor
+                var ListLecturas = await App.Database.GetLecturaMedidorAsync(IdMedidor);//consulta las lecturas que corresponde al id de medidor
                 foreach (ClsLectura item in ListLecturas)//recorrer el listado de lecturas
                 {
                     if (item.Fecha.Month == Fecha.Month && item.Fecha.Year == Fecha.Year)//si la fecha del registro coincide con el año y mes actual devuelve true y termina el método
@@ -167,6 +167,61 @@ namespace AppLecturas.Controlador
             {
                 return ex.Message;
             }
+        }
+        private async Task<IEnumerable<ClsLectura>> GetNuevos()
+        {
+            try
+            {
+                List<ClsLectura> ListLecturas = await App.Database.GetLecturaAsync();//consulta de las lecturas almacenadas
+                //en la base de datos local
+                string StrIds = "";//varible tipo cadena para guardar los Id existentes en local
+                if (ListLecturas.Count > 0)//si el listado de medidores es mayor que cero
+                {
+                    foreach (ClsLectura item in ListLecturas)
+                    {
+                        StrIds = StrIds + item.IdServer + ",";//se arma una cadena de Ids separado por coma(,)
+                    }
+                    StrIds = StrIds.Substring(0, StrIds.Length - 1);
+                }
+                else
+                    StrIds = "0";//si no hay datos asigno el valor 0 a la cadena 
+                //se define la url a la que apunta la petición, indicando el script srvlecturas.php que recibe como parametro 
+                //la cadena de ids ya registrados
+                Url = Servidor + "srvlecturas.php" +
+                    "?StrIds=" + StrIds;
+                //creación de un nuevo objeto Httpclient para hacer la solicitud al servidor remoto
+                HttpClient client = getCliente();
+                //ejecuta la petición Get al servidor remoto, pasando la url como parámetro
+                var resp = await client.GetAsync(Url);
+                if (resp.IsSuccessStatusCode)//si el codigo devuelto es satisfactorio 
+                {
+                    string content = await resp.Content.ReadAsStringAsync();//se lee el contenido de la respuesta del servidor
+                    return JsonConvert.DeserializeObject<IEnumerable<ClsLectura>>(content);//transforma el contenido de respuesta
+                    //de formato json a listado de objetos de la clase ClsMedidor
+                }
+            }
+            catch
+            {
+                return Enumerable.Empty<ClsLectura>();//devuelve una lista vacía
+            }
+            return Enumerable.Empty<ClsLectura>();//devuelve una lista vacía
+        }
+        public async Task<bool> SincronizarAsync()//método para sincronizar medidores entre la base local y la remota
+        {
+            try
+            {
+                var Consulta = await GetNuevos();//consulta los medidores nuevos 
+                if (Consulta != null)//si la consulta tiene datos
+                {
+                    foreach (ClsLectura item in Consulta)//recorrer la consulta
+                    {
+                        await App.Database.SaveLecturaAsync(item);//almacenar cada objeto en la base de datos local
+                    }
+                    return true;
+                }
+            }
+            catch { return false; }
+            return false;
         }
     }
 }

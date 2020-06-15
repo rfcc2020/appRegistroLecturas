@@ -14,7 +14,9 @@
                     <p><strong>Modelo</strong>      {{ $medidor->modelo }}</p>
                     <p><strong>Sector</strong>      {{ $medidor->sector }}</p>
                     <img class="card-img-top" src="http://localhost/admin_lecturas/public/images/{{$medidor->imagen}}" alt="">
-                    <p><strong>Id de abonado</strong>    {{ $medidor->persona_id }}</p>
+                    <p><strong>CI</strong>    {{ $abonado->cedula }}</p>
+                    <p><strong>Nombre</strong>    {{ $abonado->nombre }}</p>
+                    <p><strong>Apellido</strong>    {{ $abonado->apellido }}</p>
                 </div>
             </div>
         </div>

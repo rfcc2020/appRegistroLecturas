@@ -28,6 +28,7 @@ namespace AppLecturas.Controlador
         {
             try
             {
+                await App.Database.DeleteUsuariosAsync();
                 List<ClsUsuario> ListUsuarios = await App.Database.GetUsuarioAsync();//consulta de los medidores almacenados
                 //en la base de datos local
                 string StrIds = "";//varible tipo cadena para guardar los Id existentes en local

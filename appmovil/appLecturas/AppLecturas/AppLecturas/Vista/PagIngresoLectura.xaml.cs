@@ -203,7 +203,7 @@ namespace AppLecturas.Vista
                         )
                     {
                         if (txtCedula.Text.Length == 10 &&
-                        ObjLectura.Actual > 0)//validación cedula con 10 caracteres
+                        ObjLectura.Actual >= 0)//validación cedula con 10 caracteres
                         {
                                 var ObjLecturaInsert = await manager.SaveAsync(ObjLectura);//llamada a método que inserta un nuevo registro
                                 if (ObjLecturaInsert != null)
@@ -216,11 +216,17 @@ namespace AppLecturas.Vista
                         else
                         {
                             await DisplayAlert("Mensaje", "Faltan Datos Necesarios", "ok");
+                            res = null;
                         }
                     }
                     else
+                    {
                         await DisplayAlert("Mensaje", "Faltan Datos", "ok");
-                }else
+                        res = null;
+                    }
+
+                }
+                else
                 {
                     if (this.ObjLectura.Estado == "1")
                     {

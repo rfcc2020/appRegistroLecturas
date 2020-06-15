@@ -36,6 +36,7 @@ namespace AppLecturas.Vista
                 // cada vez que se muestre el menú se busca lecturas para sincronizar
                 if (ObjCtrlLectura.Esta_Conectado())
                 {
+                    await SincronizarLecturasAsync();
                     var StrMensaje = await ObjCtrlLectura.Sincronizar();
                     TxtConectado.Text = "SI";
                     TxtSincronizacion.Text = StrMensaje;
@@ -100,6 +101,19 @@ namespace AppLecturas.Vista
             {
                 CtrlMedidor ObjCtrlMedidor = new CtrlMedidor();
                 bool IsValid = await ObjCtrlMedidor.SincronizarAsync();
+                return IsValid;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        protected async Task<bool> SincronizarLecturasAsync()//sincroniza lecturas
+        {
+            try
+            {
+                CtrlLectura ObjCtrlLectura = new CtrlLectura();
+                bool IsValid = await ObjCtrlLectura.SincronizarAsync();
                 return IsValid;
             }
             catch
